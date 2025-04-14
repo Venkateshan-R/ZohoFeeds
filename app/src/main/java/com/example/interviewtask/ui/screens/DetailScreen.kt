@@ -60,7 +60,7 @@ fun DetailScreen(detailViewModel: DetailViewModel) {
     val dataState = remember { detailViewModel.getSelectedPost() }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    MoreBottomSheet(sheetState = sheetState)
+//    MoreBottomSheet(sheetState = sheetState)
     Surface(modifier = Modifier.fillMaxSize()) {
         Column {
             DetailTopBar()
