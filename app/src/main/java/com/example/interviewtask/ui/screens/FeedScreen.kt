@@ -1,5 +1,6 @@
 package com.example.interviewtask.ui.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.interviewtask.data.models.PostModel
+import com.example.interviewtask.ui.activities.FeedsTopBar
 import com.example.interviewtask.ui.composables.FeedsCard
 import com.example.interviewtask.ui.composables.Loader
 import com.example.interviewtask.ui.utils.UiState
@@ -47,10 +49,13 @@ fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
 
 @Composable
 fun FeedsItems(postModel: PostModel, feedsViewModel: FeedsViewModel) {
-    LazyColumn(Modifier.fillMaxSize()) {
-        items(postModel.recentStreams.streams) {
-            FeedsCard(it) {
-                feedsViewModel.feedsItemClicked(it)
+    Column {
+        FeedsTopBar()
+        LazyColumn(Modifier.fillMaxSize()) {
+            items(postModel.recentStreams.streams) {
+                FeedsCard(it) {
+                    feedsViewModel.feedsItemClicked(it)
+                }
             }
         }
     }

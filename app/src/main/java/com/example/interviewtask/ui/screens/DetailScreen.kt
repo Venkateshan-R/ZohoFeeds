@@ -19,43 +19,50 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.interviewtask.R
 import com.example.interviewtask.data.models.Comment
 import com.example.interviewtask.data.models.Stream
-import com.example.interviewtask.data.repository.FeedsRepository
+import com.example.interviewtask.ui.activities.DetailTopBar
 import com.example.interviewtask.ui.composables.FeedsBottomSection
-import com.example.interviewtask.ui.composables.FeedsCard
 import com.example.interviewtask.ui.composables.FeedsContentSection
 import com.example.interviewtask.ui.composables.FeedsProfileSection
-import com.example.interviewtask.ui.navigation.Screens
+import com.example.interviewtask.ui.composables.Loader
+import com.example.interviewtask.ui.utils.UiState
+import com.example.interviewtask.ui.utils.showToast
 import com.example.interviewtask.ui.viewmodels.DetailViewModel
-
 
 @Composable
 fun DetailScreen(detailViewModel: DetailViewModel) {
-    LaunchedEffect(key1 = true) {
-        detailViewModel.getTheSelectedPost();
-    }
+    val context = LocalContext.current
+    val dataState = remember { detailViewModel.getSelectedPost() }
+
     Surface(modifier = Modifier.fillMaxSize()) {
-        detailViewModel.selectedPost.collectAsState().value?.let {
-            Column {
-                FeedsProfileSection(it.userDetails, it.formatedTime)
-                FeedsContentSection(it.content)
-                FeedsBottomSection(it.viewCount)
-                CommentsTitleSection(it.comments.size.toString())
-                CommentsItem(it)
+        Column {
+            DetailTopBar()
+            dataState.collectAsState().value.let { it: UiState<Stream> ->
+                when (it) {
+                    is UiState.Failure -> context.showToast(it.error)
+                    is UiState.Loading -> Loader()
+                    is UiState.Success -> {
+                        FeedsProfileSection(it.data.userDetails, it.data.formatedTime)
+                        FeedsContentSection(it.data.content)
+                        FeedsBottomSection(it.data.viewCount)
+                        CommentsTitleSection(it.data.comments.size.toString())
+                        CommentsItem(it.data)
+                    }
+                }
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)
@@ -90,14 +97,14 @@ fun CommentsTitleSection(commentsCount: String) {
 @Composable
 fun CommentsItem(stream: Stream) {
     LazyColumn {
-        items(stream.comments) {comments->
+        items(stream.comments) { comments ->
             Column {
                 FeedsProfileSection(comments.userDetails, comments.formatedTime)
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Spacer(modifier = Modifier.weight(.1f))
                     Column(modifier = Modifier.weight(.9f)) {
                         FeedsContentSection(comments.content)
-                        CommetentsSectionBottomActions(comments)
+                        CommentsSectionBottomActions(comments)
                         HorizontalDivider()
                     }
                 }
@@ -107,7 +114,7 @@ fun CommentsItem(stream: Stream) {
 }
 
 @Composable
-fun CommetentsSectionBottomActions(comment: Comment,modifier: Modifier = Modifier) {
+fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -119,27 +126,39 @@ fun CommetentsSectionBottomActions(comment: Comment,modifier: Modifier = Modifie
                 contentDescription = "",
                 modifier = Modifier.padding(5.dp)
             )
-
             VerticalDivider(
                 modifier = Modifier
                     .height(16.dp)
                     .padding(horizontal = 10.dp)
             )
-
             Icon(
                 painter = painterResource(id = R.drawable.ic_comment),
                 contentDescription = "",
                 modifier = Modifier.padding(5.dp)
             )
             Text(text = "${comment.replyCount} Replies")
-
         }
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(5.dp)) {
-            Image(painter = painterResource(id = R.drawable.ic_liked), contentDescription = "",modifier=Modifier.size(16.dp))
-            Image(painter = painterResource(id = R.drawable.ic_emoji_heart), contentDescription = "",modifier=Modifier.size(16.dp).offset(x = -4.dp))
-            Image(painter = painterResource(id = R.drawable.ic_emoji_surprised), contentDescription = "",modifier=Modifier.size(16.dp).offset(x = -8.dp))
+            Image(
+                painter = painterResource(id = R.drawable.ic_liked),
+                contentDescription = "",
+                modifier = Modifier.size(16.dp)
+            )
+            Image(
+                painter = painterResource(id = R.drawable.ic_emoji_heart),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(16.dp)
+                    .offset(x = -4.dp)
+            )
+            Image(
+                painter = painterResource(id = R.drawable.ic_emoji_surprised),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(16.dp)
+                    .offset(x = -8.dp)
+            )
             Text(text = comment.likeCount)
         }
-
     }
 }

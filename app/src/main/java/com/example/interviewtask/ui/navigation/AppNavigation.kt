@@ -1,6 +1,9 @@
 package com.example.interviewtask.ui.navigation
 
-import android.util.Log
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -35,17 +38,30 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController)
                     navController
                 )
             }
-            composable(Screens.Groups.route) { GroupScreen() }
+            composable(Screens.Groups.route) {
+                println("called$$ items groupscren")
+                GroupScreen() }
             composable(Screens.Notifications.route) { NotificationScreen() }
             composable(Screens.More.route) { MoreScreen() }
             composable(Screens.Detail.route, arguments = listOf(navArgument("posterId") {
                 type = NavType.StringType
-            })) { backStackEntry ->
+            },),  enterTransition = {
+               slideIntoContainer(
+                    animationSpec = tween(300, easing = EaseIn),
+                    towards = AnimatedContentTransitionScope.SlideDirection.Start
+                )
+            },
+                exitTransition = {
+                    slideOutOfContainer(
+                        animationSpec = tween(300, easing = EaseOut),
+                        towards = AnimatedContentTransitionScope.SlideDirection.End
+                    )
+                }) { backStackEntry ->
                 val postId = backStackEntry.arguments?.getString("posterId")!!
-                println("called$$ items nextpage")
 
                 DetailScreen(hiltViewModel<DetailViewModel>().apply {
-                    this.selectedId = postId })
+                    selectedId =postId
+                })
 
             }
         })

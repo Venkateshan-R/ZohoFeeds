@@ -5,6 +5,7 @@ import com.example.interviewtask.data.models.PostModel
 import com.example.interviewtask.data.models.Stream
 import com.example.interviewtask.ui.utils.UiState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
@@ -22,10 +23,7 @@ class FeedsRepository @Inject constructor(private val postApiService: PostApiSer
 
     fun getAllThePosts() = flow<UiState<PostModel>> {
         emit(UiState.Loading)
-        println("##recompositino getAllthepost called")
         postModel = postApiService.getPosts();
-//        throw Exception("Exception")
-
         postModel?.let {
             emit(UiState.Success(postModel!!))
         }
@@ -33,12 +31,18 @@ class FeedsRepository @Inject constructor(private val postApiService: PostApiSer
         emit(UiState.Failure(it.message.toString()))
     }
 
-    fun getPostById(id: String): Stream? = postModel?.recentStreams?.streams?.first {
-        println("called$$ inner " + it.id)
-        it.id == id
-    }.also {
-        println("called$$ getpostbuid " + it.toString())
-    }
+    fun getPostById(id: String) = flow<UiState<Stream>> {
+        println("datadss getPostById $id "+postModel?.recentStreams?.streams?.toString())
+        println("datas@ repo called")
 
+        println("called$$ gtetpoasss")
+        emit(UiState.Loading)
+        postModel?.recentStreams?.streams?.first { it.id == id }?.let {
+            emit(UiState.Success(it))
+        } ?: emit(UiState.Failure("Post not found"))
+
+    }.catch {
+        emit(UiState.Failure(it.message.toString()))
+    }
 
 }
