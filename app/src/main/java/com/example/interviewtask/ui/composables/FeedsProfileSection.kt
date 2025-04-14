@@ -1,6 +1,5 @@
 package com.example.interviewtask.ui.composables
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,19 +12,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.interviewtask.R
 import com.example.interviewtask.data.models.UserDetails
+import com.example.interviewtask.ui.theme.ExtraLightGrey
+import com.example.interviewtask.ui.theme.ExtraLightGreyIcon
 import com.example.interviewtask.ui.theme.InterviewTaskTheme
+import com.example.interviewtask.ui.theme.LightGrey
+import com.example.interviewtask.ui.theme.customFontFamily
+import com.example.interviewtask.ui.utils.getStream
 
 @Composable
 fun FeedsProfileSection(
-    userDetails: UserDetails,
-    formattedTime: String,
-    isMoreEnabled: Boolean = true
+    userDetails: UserDetails, formattedTime: String, isMoreEnabled: Boolean = true
 ) {
     Row(
         modifier = Modifier
@@ -33,47 +39,69 @@ fun FeedsProfileSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
-            modifier = Modifier
-                .padding(5.dp)
-                .weight(.9f), verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.weight(.9f), verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .clip(CircleShape)
-                    .size(36.dp)
-                    .weight(.1f, fill = true),
+                    .size(44.dp)
+                    .clip(CircleShape),
                 model = userDetails.imageUrl,
                 contentDescription = "",
                 placeholder = painterResource(R.drawable.ic_profile)
-
             )
 
             Column(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .weight(.8f, fill = true)
+                modifier = Modifier.weight(.1f, fill = true)
             ) {
-                Text(text = userDetails.name)
+                Text(
+                    modifier = Modifier.padding(horizontal = 6.dp),
+                    text = userDetails.name,
+                    fontFamily = customFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    lineHeight = 18.sp
+
+                )
                 Row(verticalAlignment = Alignment.Top) {
-                    Text(text = "connected", modifier = Modifier.padding(horizontal = 2.dp))
+                    Text(
+                        text = "Connect mobile",
+                        modifier = Modifier.padding(horizontal = 6.dp),
+                        fontFamily = customFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                        color = ExtraLightGrey,
+                        lineHeight = 18.sp
+                    )
                     Text(
                         text = "•",
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
-                            .padding(horizontal = 2.dp)
+                            .padding(horizontal = 4.dp),
+                        fontFamily = customFontFamily,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 16.sp,
+                        color = ExtraLightGrey,
+                        lineHeight = 18.sp
                     )
-                    Text(text = formattedTime, modifier = Modifier.padding(horizontal = 2.dp))
+                    Text(
+                        text = formattedTime.split(",").get(0),
+                        modifier = Modifier.padding(horizontal = 2.dp),
+                        fontFamily = customFontFamily,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 16.sp,
+                        color = ExtraLightGrey,
+                        lineHeight = 18.sp
+                    )
                 }
             }
         }
 
-        if(isMoreEnabled)
-        Icon(
+        if (isMoreEnabled) Icon(
             painter = painterResource(id = R.drawable.ic_h_dot),
             contentDescription = "",
-            modifier = Modifier.weight(.1f, fill = true)
-        )
+            tint = ExtraLightGreyIcon
 
+        )
     }
 }
 
@@ -81,8 +109,11 @@ fun FeedsProfileSection(
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun PreviewFeedsProfile() {
-    /* InterviewTaskTheme {
-     FeedsProfileSection()
-     }*/
+    InterviewTaskTheme {
+        FeedsProfileSection(
+            getStream(LocalContext.current).userDetails,
+            getStream(LocalContext.current).formatedTime
+        )
+    }
 
 }

@@ -2,7 +2,9 @@ package com.example.interviewtask.ui.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -10,9 +12,11 @@ import androidx.compose.material3.CardColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.interviewtask.data.models.Stream
+import com.example.interviewtask.ui.utils.getDummyData
 
 @Composable
 fun FeedsCard(stream: Stream, onclick: () -> Unit) {
@@ -29,12 +33,20 @@ fun FeedsCard(stream: Stream, onclick: () -> Unit) {
             disabledContentColor = Color.Black
         )
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            FeedsProfileSection(stream.userDetails,stream.formatedTime)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            FeedsProfileSection(stream.userDetails, stream.formatedTime)
+            Spacer(Modifier.height(8.dp))
             FeedsContentSection(stream.content)
+            Spacer(Modifier.height(8.dp))
             ChipsSection(stream.tags)
+            Spacer(Modifier.height(8.dp))
             FeedsBottomSection(stream.viewCount)
-            FeedsLikesAndComments(stream.likeCount,stream.comments.size.toString())
+            Spacer(Modifier.height(8.dp))
+            FeedsLikesAndComments(stream.likeCount, stream.comments.size.toString())
         }
     }
 }
@@ -42,7 +54,7 @@ fun FeedsCard(stream: Stream, onclick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewFeedsBottomSection() {
-  /*  FeedsCard (Stream()){
+    FeedsCard(getDummyData(LocalContext.current)!!.recentStreams.streams.get(0)) {
 
-    }*/
+    }
 }

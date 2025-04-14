@@ -11,8 +11,10 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -41,8 +43,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -51,7 +55,10 @@ import com.example.interviewtask.ui.navigation.AppNavigation
 import com.example.interviewtask.ui.navigation.Screens
 import com.example.interviewtask.ui.screens.FeedScreen
 import com.example.interviewtask.ui.theme.ActoinIconButtonColor
+import com.example.interviewtask.ui.theme.ExtraLightGrey
+import com.example.interviewtask.ui.theme.ExtraLightGreyIcon
 import com.example.interviewtask.ui.theme.InterviewTaskTheme
+import com.example.interviewtask.ui.theme.customFontFamily
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,7 +77,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main() {
     val navController = rememberNavController()
@@ -164,9 +170,19 @@ fun FeedsTopBar() {
         actionIconContentColor = MaterialTheme.colorScheme.primary,
         titleContentColor = MaterialTheme.colorScheme.onBackground
     ), title = {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Feeds")
-            Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "")
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = 6.dp)
+        ) {
+            Text(
+                text = "Feeds", fontFamily = customFontFamily,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp,
+            )
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowDown,
+                contentDescription = "",
+            )
         }
     }, actions = {
         TopBarIcon(iconResource = R.drawable.ic_search) {
@@ -175,6 +191,7 @@ fun FeedsTopBar() {
         TopBarIcon(iconResource = R.drawable.ic_appbar_more) {
 
         }
+        Spacer(modifier = Modifier.padding(horizontal = 4.dp))
     }, navigationIcon = {
         TopBarIcon(iconResource = R.drawable.ic_menu) {
 

@@ -1,0 +1,115 @@
+{
+  "recentStreams": {
+    "streams": [
+      {
+        "id": "1281356632",
+        "userDetails": {
+          "id": "61641254",
+          "name": "Jo Washington",
+          "imageUrl": "https://i.pravatar.cc/200?u=61641254"
+        },
+        "partition": {
+          "id": "341747",
+          "name": "Matrix Synergistic Web Services",
+          "partitionUrl": "matrix-synergistic-web-services-341747",
+          "url": "matrix-synergistic-web-services-341747",
+          "isPrivate": "false",
+          "bgColor": "BEC47D",
+          "logo": "MS"
+        },
+        "content": "Wide painting key sell think perhaps. Billion child give operation letter. Month determine school set able citizen on should.",
+        "time": "1743389677548",
+        "streamModifiedTime": "1743389677548",
+        "formatedTime": "08:24 AM, 03/31/2025",
+        "viewCount": "1294749",
+        "comments": [
+          {
+            "id": "1270880266755371",
+            "time": "1743457957548",
+            "formatedTime": "03:22 AM, 04/01/2025",
+            "content": "High foot kind professor close.",
+            "likeCount": "95120",
+            "replyCount": "992",
+            "isCurrentUserLiked": "false",
+            "userDetails": {
+              "id": "86990511",
+              "name": "Connor Goodwin",
+              "imageUrl": "https://i.pravatar.cc/200?u=86990511"
+            }
+          },
+          {
+            "id": "1262248380646142",
+            "time": "1743690817549",
+            "formatedTime": "08:03 PM, 04/03/2025",
+            "content": "Nature cost resource ago.",
+            "likeCount": "9654",
+            "replyCount": "147",
+            "isCurrentUserLiked": "true",
+            "userDetails": {
+              "id": "11338652",
+              "name": "Jason Daniels",
+              "imageUrl": "https://i.pravatar.cc/200?u=11338652"
+            }
+          },
+          {
+            "id": "2420963009101141",
+            "time": "1743848317549",
+            "formatedTime": "03:48 PM, 04/05/2025",
+            "content": "We program along particularly much always.",
+            "likeCount": "76869",
+            "replyCount": "41",
+            "isCurrentUserLiked": "true",
+            "userDetails": {
+              "id": "54878267",
+              "name": "Angela Torres",
+              "imageUrl": "https://i.pravatar.cc/200?u=54878267"
+            }
+          },
+          {
+            "id": "3370550185835188",
+            "time": "1743464497549",
+            "formatedTime": "05:11 AM, 04/01/2025",
+            "content": "Class point current.",
+            "likeCount": "78756",
+            "replyCount": "195",
+            "isCurrentUserLiked": "false",
+            "userDetails": {
+              "id": "10249659",
+              "name": "Kenneth Simpson",
+              "imageUrl": "https://i.pravatar.cc/200?u=10249659"
+            }
+          }
+        ],
+        "url": "https://example.com/stream/1281356632",
+        "likeCount": "24570",
+        "isCurrentUserLiked": "false",
+        "tags": [],
+        "attachments": [
+          "https://picsum.photos/seed/treat/512/256",
+          "https://picsum.photos/seed/around/512/256",
+          "https://picsum.photos/seed/imagine/512/256",
+          "https://picsum.photos/seed/scene/512/256",
+          "https://picsum.photos/seed/around/512/256",
+          "https://picsum.photos/seed/candidate/512/256"
+        ],
+        "reason": {
+          "items": {
+            "*^$@_PARTITION_*^$@": {
+              "id": "341747",
+              "name": "Matrix Synergistic Web Services",
+              "partitionUrl": "matrix-synergistic-web-services-341747",
+              "url": "matrix-synergistic-web-services-341747",
+              "bgColor": "21E67B",
+              "logo": "MS"
+            },
+            "*^$@_USERNAME_*^$@_61641254": {
+              "id": "61641254",
+              "name": "Jo Washington"
+            }
+          },
+          "msg": "*^$@_USERNAME_*^$@_61641254 has posted in *^$@_PARTITION_*^$@."
+        }
+      }
+    ]
+  }
+}
