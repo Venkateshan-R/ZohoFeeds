@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.interviewtask.ui.theme.ExtraLightGrey
 import com.example.interviewtask.ui.theme.customFontFamily
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -46,7 +45,7 @@ fun ChipsSection(tags: List<String>) {
                     text = it, fontFamily = customFontFamily,
                     fontWeight = FontWeight.Normal,
                     fontSize = 14.sp,
-                    color = ExtraLightGrey,
+                    color = Color.Black.copy(alpha = 0.5f),
                 )
             }
         }

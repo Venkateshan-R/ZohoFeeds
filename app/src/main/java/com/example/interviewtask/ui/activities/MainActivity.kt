@@ -55,8 +55,6 @@ import com.example.interviewtask.ui.navigation.AppNavigation
 import com.example.interviewtask.ui.navigation.Screens
 import com.example.interviewtask.ui.screens.FeedScreen
 import com.example.interviewtask.ui.theme.ActoinIconButtonColor
-import com.example.interviewtask.ui.theme.ExtraLightGrey
-import com.example.interviewtask.ui.theme.ExtraLightGreyIcon
 import com.example.interviewtask.ui.theme.InterviewTaskTheme
 import com.example.interviewtask.ui.theme.customFontFamily
 import dagger.hilt.EntryPoint
@@ -197,7 +195,6 @@ fun FeedsTopBar() {
 
         }
     })
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -205,8 +202,11 @@ fun FeedsTopBar() {
 fun DetailTopBar() {
     Surface {
         TopAppBar(windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp), title = {
-            Text(text = "Post")
-
+            Text(
+                text = "Post", fontFamily = customFontFamily,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp,
+            )
         }, actions = {
             TopBarIcon(iconResource = R.drawable.ic_appbar_more) {
 

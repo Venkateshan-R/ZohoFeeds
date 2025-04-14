@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.interviewtask.R
-import com.example.interviewtask.ui.theme.ExtraLightGrey
 import com.example.interviewtask.ui.theme.customFontFamily
 
 @Composable
@@ -34,15 +33,17 @@ fun FeedsBottomSection(viewCount: String) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_like),
                     contentDescription = "",
+                    tint = Color.Black.copy(alpha = 0.5f)
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_comment),
                     contentDescription = "",
+                    tint = Color.Black.copy(alpha = 0.5f)
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier.padding(5.dp)) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_views), tint = ExtraLightGrey,
+                    painter = painterResource(id = R.drawable.ic_views), tint = Color.Black.copy(alpha = 0.5f),
                     contentDescription = "",
                 )
                 Text(
@@ -50,7 +51,7 @@ fun FeedsBottomSection(viewCount: String) {
                     fontFamily = customFontFamily,
                     fontWeight = FontWeight.Light,
                     fontSize = 16.sp,
-                    color = ExtraLightGrey
+                    color = Color.Black.copy(alpha = 0.5f)
                 )
             }
 

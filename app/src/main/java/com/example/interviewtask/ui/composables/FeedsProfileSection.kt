@@ -22,10 +22,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.interviewtask.R
 import com.example.interviewtask.data.models.UserDetails
-import com.example.interviewtask.ui.theme.ExtraLightGrey
-import com.example.interviewtask.ui.theme.ExtraLightGreyIcon
 import com.example.interviewtask.ui.theme.InterviewTaskTheme
-import com.example.interviewtask.ui.theme.LightGrey
 import com.example.interviewtask.ui.theme.customFontFamily
 import com.example.interviewtask.ui.utils.getStream
 
@@ -69,7 +66,7 @@ fun FeedsProfileSection(
                         fontFamily = customFontFamily,
                         fontWeight = FontWeight.Normal,
                         fontSize = 16.sp,
-                        color = ExtraLightGrey,
+                        color = Color.Black.copy(alpha = 0.5f),
                         lineHeight = 18.sp
                     )
                     Text(
@@ -80,7 +77,7 @@ fun FeedsProfileSection(
                         fontFamily = customFontFamily,
                         fontWeight = FontWeight.Light,
                         fontSize = 16.sp,
-                        color = ExtraLightGrey,
+                        color = Color.Black.copy(alpha = 0.5f),
                         lineHeight = 18.sp
                     )
                     Text(
@@ -89,7 +86,7 @@ fun FeedsProfileSection(
                         fontFamily = customFontFamily,
                         fontWeight = FontWeight.Light,
                         fontSize = 16.sp,
-                        color = ExtraLightGrey,
+                        color = Color.Black.copy(alpha = 0.5f),
                         lineHeight = 18.sp
                     )
                 }
@@ -99,7 +96,7 @@ fun FeedsProfileSection(
         if (isMoreEnabled) Icon(
             painter = painterResource(id = R.drawable.ic_h_dot),
             contentDescription = "",
-            tint = ExtraLightGreyIcon
+            tint = Color.Black.copy(alpha = 0.5f)
 
         )
     }

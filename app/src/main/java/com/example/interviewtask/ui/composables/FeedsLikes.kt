@@ -9,12 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.interviewtask.R
-import com.example.interviewtask.ui.theme.ExtraLightGrey
 import com.example.interviewtask.ui.theme.customFontFamily
 
 @Composable
@@ -37,7 +37,7 @@ fun FeedsLikesAndComments(
             fontFamily = customFontFamily,
             fontWeight = FontWeight.Light,
             fontSize = 16.sp,
-            color = ExtraLightGrey
+            color = Color.Black.copy(alpha = 0.5f)
         )
         Text(
             text = "•",
@@ -45,13 +45,13 @@ fun FeedsLikesAndComments(
             fontFamily = customFontFamily,
             fontWeight = FontWeight.Light,
             fontSize = 16.sp,
-            color = ExtraLightGrey
+            color = Color.Black.copy(alpha = 0.5f)
         )
         Text(
             fontFamily = customFontFamily,
             fontWeight = FontWeight.Light,
             fontSize = 16.sp,
-            color = ExtraLightGrey,
+            color = Color.Black.copy(alpha = 0.5f),
             text = "$commentsCount Comments",
         )
     }

@@ -37,7 +37,7 @@ fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
             }
 
             is UiState.Success -> {
-                FeedsItems(it.data, feedsViewModel)
+                FeedsSection(it.data, feedsViewModel)
             }
 
             is UiState.Failure -> {
@@ -48,11 +48,11 @@ fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
 }
 
 @Composable
-fun FeedsItems(postModel: PostModel, feedsViewModel: FeedsViewModel) {
+fun FeedsSection(postModel: PostModel, feedsViewModel: FeedsViewModel) {
     Column {
         FeedsTopBar()
         LazyColumn(Modifier.fillMaxSize()) {
-            items(postModel.recentStreams.streams) {
+            items(postModel.recentStreams.streams.subList(0,10)) {
                 FeedsCard(it) {
                     feedsViewModel.feedsItemClicked(it)
                 }

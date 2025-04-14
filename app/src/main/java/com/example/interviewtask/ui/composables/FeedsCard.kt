@@ -1,10 +1,9 @@
 package com.example.interviewtask.ui.composables
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -33,21 +32,7 @@ fun FeedsCard(stream: Stream, onclick: () -> Unit) {
             disabledContentColor = Color.Black
         )
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            FeedsProfileSection(stream.userDetails, stream.formatedTime)
-            Spacer(Modifier.height(8.dp))
-            FeedsContentSection(stream.content)
-            Spacer(Modifier.height(8.dp))
-            ChipsSection(stream.tags)
-            Spacer(Modifier.height(8.dp))
-            FeedsBottomSection(stream.viewCount)
-            Spacer(Modifier.height(8.dp))
-            FeedsLikesAndComments(stream.likeCount, stream.comments.size.toString())
-        }
+        FeedItemContent(stream)
     }
 }
 
@@ -58,3 +43,4 @@ fun PreviewFeedsBottomSection() {
 
     }
 }
+
