@@ -44,7 +44,8 @@ fun FeedsProfileSection(
                     .weight(.1f, fill = true),
                 model = userDetails.imageUrl,
                 contentDescription = "",
-                placeholder = painterResource(id = R.drawable.ic_liked)
+                placeholder = painterResource(R.drawable.ic_profile)
+
             )
 
             Column(
@@ -66,6 +67,7 @@ fun FeedsProfileSection(
             }
         }
 
+        if(isMoreEnabled)
         Icon(
             painter = painterResource(id = R.drawable.ic_h_dot),
             contentDescription = "",

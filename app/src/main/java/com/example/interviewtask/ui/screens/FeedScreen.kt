@@ -7,29 +7,52 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
+import com.example.interviewtask.data.models.PostModel
 import com.example.interviewtask.ui.composables.FeedsCard
+import com.example.interviewtask.ui.composables.Loader
+import com.example.interviewtask.ui.utils.UiState
+import com.example.interviewtask.ui.utils.showToast
 import com.example.interviewtask.ui.viewmodels.FeedsViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
+    val context = LocalContext.current
     LaunchedEffect(key1 = true) {
-        feedsViewModel.navigationEvent.collectLatest {route->
+        feedsViewModel.navigationEvent.collectLatest { route ->
             controller.navigate(route)
         }
-
     }
+    println("##recompositino trigger")
 
-    feedsViewModel.postStateFlow.collectAsState().value?.let {
-        LazyColumn(Modifier.fillMaxSize()) {
-            items(it.recentStreams.streams) {
-                FeedsCard(it) {
-                    feedsViewModel.feedsItemClicked(it)
-                }
+    feedsViewModel.postStateFlow.collectAsState().value.let {
+        println("##recompositino inner")
+        when (it) {
+            is UiState.Loading -> {
+                Loader()
+            }
+
+            is UiState.Success -> {
+                FeedsItems(it.data, feedsViewModel)
+            }
+
+            is UiState.Failure -> {
+                context.showToast(it.error)
             }
         }
     }
+}
 
+@Composable
+fun FeedsItems(postModel: PostModel, feedsViewModel: FeedsViewModel) {
+    LazyColumn(Modifier.fillMaxSize()) {
+        items(postModel.recentStreams.streams) {
+            FeedsCard(it) {
+                feedsViewModel.feedsItemClicked(it)
+            }
+        }
+    }
 }
 
