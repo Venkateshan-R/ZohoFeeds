@@ -47,13 +47,13 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController)
                 type = NavType.StringType
             },),  enterTransition = {
                slideIntoContainer(
-                    animationSpec = tween(500, easing = EaseIn),
+                    animationSpec = tween(250, easing = EaseIn),
                     towards = AnimatedContentTransitionScope.SlideDirection.Start
                 )
             },
                 exitTransition = {
                     slideOutOfContainer(
-                        animationSpec = tween(500, easing = EaseOut),
+                        animationSpec = tween(250, easing = EaseOut),
                         towards = AnimatedContentTransitionScope.SlideDirection.End
                     )
                 }) { backStackEntry ->

@@ -26,8 +26,11 @@ class FeedsViewModel @Inject constructor(val repository: FeedsRepository) : View
 
     fun feedsItemClicked(stream: Stream) {
         viewModelScope.launch {
-            navigationEvent.emit(Screens.Detail.withArgs(stream.id
-            ))
+            navigationEvent.emit(
+                Screens.Detail.withArgs(
+                    stream.id
+                )
+            )
         }
     }
 

@@ -2,7 +2,6 @@ package com.example.interviewtask.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,7 +20,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -39,12 +37,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.interviewtask.R
 import com.example.interviewtask.data.models.Comment
 import com.example.interviewtask.data.models.Stream
 import com.example.interviewtask.ui.activities.DetailTopBar
 import com.example.interviewtask.ui.composables.FeedItemContent
-import com.example.interviewtask.ui.composables.FeedsBottomSection
 import com.example.interviewtask.ui.composables.FeedsContentSection
 import com.example.interviewtask.ui.composables.FeedsProfileSection
 import com.example.interviewtask.ui.composables.Loader
@@ -85,7 +83,7 @@ fun DetailScreen(detailViewModel: DetailViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewDetailScreen(modifier: Modifier = Modifier) {
-//    DetailScreen(detailViewModel = DetailViewModel(FeedsRepository()))
+    DetailScreen(detailViewModel = hiltViewModel<DetailViewModel>().apply { selectedId = "0" })
 
 }
 

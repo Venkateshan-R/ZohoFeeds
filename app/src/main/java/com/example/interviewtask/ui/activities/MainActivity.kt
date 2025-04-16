@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 
@@ -83,11 +85,12 @@ fun Main() {
         bottomBar = {
             val currentRoute =
                 navController.currentBackStackEntryAsState().value?.destination?.route
-            AnimatedVisibility(visible = currentRoute != Screens.Detail.route,
-                enter = slideInVertically { it },
-                exit = slideOutVertically { it }) {
+            /*  AnimatedVisibility(visible = currentRoute != Screens.Detail.route,
+                  enter = slideInVertically { it },
+                  exit = slideOutVertically { it }) {*/
+            if (currentRoute != Screens.Detail.route)
                 CustomBottomAppBar(navController)
-            }
+//            }
         },
         floatingActionButton = {
 
@@ -141,6 +144,21 @@ fun CustomBottomAppBar(navController: NavController) {
                         painter = painterResource(icon),
                         contentDescription = "",
                     )
+
+
+                    BadgedBox(
+                        badge = {
+                            println("curent ro $currentRoute == ${Screens.Notifications.route}")
+                            if (bottomBarItem.route == Screens.Notifications.route)
+                                Badge { Text("3") }
+                        }
+                    ) {
+                        Icon(
+                            painter = painterResource(icon),
+                            contentDescription = "",
+                        )
+                    }
+
                 }, colors = NavigationBarItemColors(
                     selectedIconColor = MaterialTheme.colorScheme.primary,
                     selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
