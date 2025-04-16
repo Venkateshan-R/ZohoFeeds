@@ -22,7 +22,7 @@ class FeedsViewModel @Inject constructor(val repository: FeedsRepository) : View
 
     var navigationEvent = MutableSharedFlow<String>()
     var postStateFlow: StateFlow<UiState<PostModel>> = repository.getAllThePosts()
-        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5000), UiState.Loading)
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, UiState.Loading)
 
     fun feedsItemClicked(stream: Stream) {
         viewModelScope.launch {

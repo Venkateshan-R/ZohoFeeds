@@ -26,6 +26,7 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,23 +57,30 @@ import com.example.interviewtask.ui.viewmodels.DetailViewModel
 fun DetailScreen(detailViewModel: DetailViewModel) {
     val context = LocalContext.current
     val dataState = remember { detailViewModel.getSelectedPost() }
+    val isVisible = remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-//    MoreBottomSheet(sheetState = sheetState)
     Surface(modifier = Modifier.fillMaxSize()) {
+
         Column {
+            MoreBottomSheet(sheetState = sheetState, isVisible = isVisible.value){
+                isVisible.value=false
+            }
             DetailTopBar()
             dataState.collectAsState().value.let { it: UiState<Stream> ->
                 when (it) {
                     is UiState.Failure -> context.showToast(it.error)
                     is UiState.Loading -> Loader()
                     is UiState.Success -> {
-                        FeedItemContent(stream = it.data)
+                        FeedItemContent(stream = it.data,false)
                         CommentsTitleSection(
                             it.data.comments.size.toString(),
                             Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         )
-                        CommentSection(it.data)
+                        CommentSection(it.data){
+                            isVisible.value = true
+                        }
+
                     }
                 }
             }
@@ -115,18 +123,18 @@ fun CommentsTitleSection(commentsCount: String, modifier: Modifier) {
 }
 
 @Composable
-fun CommentSection(stream: Stream) {
+fun CommentSection(stream: Stream,onClick:()->Unit) {
     LazyColumn {
         items(stream.comments) { it ->
-            CommentsCard(it)
+            CommentsCard(it,onClick)
         }
     }
 }
 
 @Composable
-fun CommentsCard(comment: Comment) {
+fun CommentsCard(comment: Comment,onClick:()->Unit) {
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-        FeedsProfileSection(comment.userDetails, comment.formatedTime)
+        FeedsProfileSection(comment.userDetails, comment.formatedTime,onClick = onClick, isConnectMobileShouldShow = false)
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.padding(25.dp))
             Column(
@@ -206,8 +214,9 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MoreBottomSheet(modifier: Modifier = Modifier, sheetState: SheetState) {
-    ModalBottomSheet(onDismissRequest = { }, sheetState = sheetState) {
+fun MoreBottomSheet(modifier: Modifier = Modifier, sheetState: SheetState,isVisible : Boolean,onDismiss : () -> Unit) {
+    if(isVisible)
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()

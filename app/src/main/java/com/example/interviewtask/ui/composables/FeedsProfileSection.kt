@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +29,11 @@ import com.example.interviewtask.ui.utils.getStream
 
 @Composable
 fun FeedsProfileSection(
-    userDetails: UserDetails, formattedTime: String, isMoreEnabled: Boolean = true
+    userDetails: UserDetails,
+    formattedTime: String,
+    isMoreEnabled: Boolean = true,
+    isConnectMobileShouldShow: Boolean = true,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = Modifier
@@ -48,10 +53,9 @@ fun FeedsProfileSection(
             )
 
             Column(
-                modifier = Modifier.weight(.1f, fill = true)
+                modifier = Modifier.weight(.1f, fill = true).padding(horizontal = 6.dp)
             ) {
                 Text(
-                    modifier = Modifier.padding(horizontal = 6.dp),
                     text = userDetails.name,
                     fontFamily = customFontFamily,
                     fontWeight = FontWeight.Bold,
@@ -60,26 +64,27 @@ fun FeedsProfileSection(
 
                 )
                 Row(verticalAlignment = Alignment.Top) {
-                    Text(
-                        text = "Connect mobile",
-                        modifier = Modifier.padding(horizontal = 6.dp),
-                        fontFamily = customFontFamily,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 16.sp,
-                        color = Color.Black.copy(alpha = 0.5f),
-                        lineHeight = 18.sp
-                    )
-                    Text(
-                        text = "•",
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(horizontal = 4.dp),
-                        fontFamily = customFontFamily,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 16.sp,
-                        color = Color.Black.copy(alpha = 0.5f),
-                        lineHeight = 18.sp
-                    )
+                    if (isConnectMobileShouldShow) {
+                        Text(
+                            text = "Connect mobile",
+                            fontFamily = customFontFamily,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 16.sp,
+                            color = Color.Black.copy(alpha = 0.5f),
+                            lineHeight = 18.sp
+                        )
+                        Text(
+                            text = "•",
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .padding(horizontal = 4.dp),
+                            fontFamily = customFontFamily,
+                            fontWeight = FontWeight.Light,
+                            fontSize = 16.sp,
+                            color = Color.Black.copy(alpha = 0.5f),
+                            lineHeight = 18.sp
+                        )
+                    }
                     Text(
                         text = formattedTime.split(",").get(0),
                         modifier = Modifier.padding(horizontal = 2.dp),
@@ -93,12 +98,15 @@ fun FeedsProfileSection(
             }
         }
 
-        if (isMoreEnabled) Icon(
-            painter = painterResource(id = R.drawable.ic_h_dot),
-            contentDescription = "",
-            tint = Color.Black.copy(alpha = 0.5f)
+        if (isMoreEnabled)
+            IconButton(onClick = { onClick.invoke() }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_h_dot),
+                    contentDescription = "",
+                    tint = Color.Black.copy(alpha = 0.5f)
+                )
+            }
 
-        )
     }
 }
 

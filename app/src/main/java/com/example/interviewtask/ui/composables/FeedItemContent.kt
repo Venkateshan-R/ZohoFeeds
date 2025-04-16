@@ -10,13 +10,13 @@ import androidx.compose.ui.unit.dp
 import com.example.interviewtask.data.models.Stream
 
 @Composable
-fun FeedItemContent(stream: Stream) {
+fun FeedItemContent(stream: Stream,isMoreEnabled:Boolean=true) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        FeedsProfileSection(stream.userDetails, stream.formatedTime)
+        FeedsProfileSection(stream.userDetails, stream.formatedTime,isMoreEnabled)
         FeedsContentSection(stream.content)
         ChipsSection(stream.tags)
         FeedsBottomSection(stream.viewCount)
