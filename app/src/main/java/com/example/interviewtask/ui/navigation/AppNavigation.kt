@@ -32,36 +32,37 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController)
             startDestination = Screens.Feeds.route
         ) {
             composable(Screens.Home.route) { HomeScreen() }
+
             composable(Screens.Feeds.route) {
                 FeedScreen(
-                    hiltViewModel<FeedsViewModel>(),
-                    navController
+                    hiltViewModel<FeedsViewModel>(), navController
                 )
             }
-            composable(Screens.Groups.route) {
-                println("called$$ items groupscren")
-                GroupScreen() }
+            composable(Screens.Groups.route) { GroupScreen() }
+
             composable(Screens.Notifications.route) { NotificationScreen() }
+
             composable(Screens.More.route) { MoreScreen() }
-            composable(Screens.Detail.route, arguments = listOf(navArgument("posterId") {
-                type = NavType.StringType
-            },),  enterTransition = {
-               slideIntoContainer(
+
+            composable(Screens.Detail.route, arguments = listOf(
+                navArgument("posterId") {
+                    type = NavType.StringType
+                },
+            ), enterTransition = {
+                slideIntoContainer(
                     animationSpec = tween(250, easing = EaseIn),
                     towards = AnimatedContentTransitionScope.SlideDirection.Start
                 )
-            },
-                exitTransition = {
-                    slideOutOfContainer(
-                        animationSpec = tween(250, easing = EaseOut),
-                        towards = AnimatedContentTransitionScope.SlideDirection.End
-                    )
-                }) { backStackEntry ->
+            }, exitTransition = {
+                slideOutOfContainer(
+                    animationSpec = tween(250, easing = EaseOut),
+                    towards = AnimatedContentTransitionScope.SlideDirection.End
+                )
+            }) { backStackEntry ->
                 val postId = backStackEntry.arguments?.getString("posterId")!!
-
                 DetailScreen(hiltViewModel<DetailViewModel>().apply {
-                    selectedId =postId
-                })
+                    selectedId = postId
+                },navController)
 
             }
         })

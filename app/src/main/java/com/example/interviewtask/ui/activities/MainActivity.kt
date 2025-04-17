@@ -46,6 +46,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -126,53 +127,50 @@ fun CustomBottomAppBar(navController: NavController) {
         )
     }
 
-    Surface {
+    BottomAppBar(containerColor = Color.White) {
+        bottomBarItemsList.forEachIndexed { index, bottomBarItem ->
+            NavigationBarItem(label = {
+                Row {
+                    Text(text = bottomBarItem.title, maxLines = 1, overflow = TextOverflow.Visible,
+                        style = MaterialTheme.typography.labelMedium)
+                }
+            }, selected = currentRoute == bottomBarItem.route, onClick = {
+                selectedItemIndex.value = index
+                navController.navigate(bottomBarItem.title)
+            }, icon = {
+                val icon =
+                    if (currentRoute == bottomBarItem.route) bottomBarItem.selectedIconId else bottomBarItem.defaultIconId
+                Icon(
+                    painter = painterResource(icon),
+                    contentDescription = "",
+                )
 
-        BottomAppBar(containerColor = Color.White) {
-            bottomBarItemsList.forEachIndexed { index, bottomBarItem ->
-                NavigationBarItem(label = {
-                    Row {
-                        Text(text = bottomBarItem.title, maxLines = 1)
+
+                BadgedBox(
+                    badge = {
+                        println("curent ro $currentRoute == ${Screens.Notifications.route}")
+                        if (bottomBarItem.route == Screens.Notifications.route)
+                            Badge { Text("3") }
                     }
-                }, selected = currentRoute == bottomBarItem.route, onClick = {
-                    selectedItemIndex.value = index
-                    navController.navigate(bottomBarItem.title)
-                }, icon = {
-                    val icon =
-                        if (currentRoute == bottomBarItem.route) bottomBarItem.selectedIconId else bottomBarItem.defaultIconId
+                ) {
                     Icon(
                         painter = painterResource(icon),
                         contentDescription = "",
                     )
+                }
 
-
-                    BadgedBox(
-                        badge = {
-                            println("curent ro $currentRoute == ${Screens.Notifications.route}")
-                            if (bottomBarItem.route == Screens.Notifications.route)
-                                Badge { Text("3") }
-                        }
-                    ) {
-                        Icon(
-                            painter = painterResource(icon),
-                            contentDescription = "",
-                        )
-                    }
-
-                }, colors = NavigationBarItemColors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-                    selectedTextColor = MaterialTheme.colorScheme.onBackground,
-                    unselectedIconColor = MaterialTheme.colorScheme.onBackground,
-                    unselectedTextColor = MaterialTheme.colorScheme.onBackground,
-                    disabledIconColor = MaterialTheme.colorScheme.onBackground,
-                    disabledTextColor = MaterialTheme.colorScheme.onBackground
-                )
-                )
-            }
+            }, colors = NavigationBarItemColors(
+                selectedIconColor = MaterialTheme.colorScheme.primary,
+                selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+                selectedTextColor = MaterialTheme.colorScheme.onBackground,
+                unselectedIconColor = MaterialTheme.colorScheme.onBackground,
+                unselectedTextColor = MaterialTheme.colorScheme.onBackground,
+                disabledIconColor = MaterialTheme.colorScheme.onBackground,
+                disabledTextColor = MaterialTheme.colorScheme.onBackground
+            )
+            )
         }
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -191,9 +189,7 @@ fun FeedsTopBar() {
             modifier = Modifier.padding(horizontal = 6.dp)
         ) {
             Text(
-                text = "Feeds", fontFamily = customFontFamily,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 20.sp,
+                text = "Feeds", style = MaterialTheme.typography.titleLarge
             )
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
@@ -217,22 +213,20 @@ fun FeedsTopBar() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailTopBar() {
+fun DetailTopBar(onBackClick : ()->Unit) {
     Surface {
         TopAppBar(windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp), title = {
             Text(
-                text = "Post", fontFamily = customFontFamily,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 20.sp,
+                text = "Post",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(horizontal = 6.dp)
             )
         }, actions = {
             TopBarIcon(iconResource = R.drawable.ic_appbar_more) {
 
             }
         }, navigationIcon = {
-            TopBarIcon(iconResource = R.drawable.ic_back) {
-
-            }
+            TopBarIcon(iconResource = R.drawable.ic_back, onClick = onBackClick)
         })
     }
 }

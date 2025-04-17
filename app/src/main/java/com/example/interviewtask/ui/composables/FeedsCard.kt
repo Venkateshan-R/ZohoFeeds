@@ -36,7 +36,7 @@ fun FeedsCard(stream: Stream, onclick: () -> Unit) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewFeedsBottomSection() {
     FeedsCard(getDummyData(LocalContext.current)!!.recentStreams.streams.get(0)) {

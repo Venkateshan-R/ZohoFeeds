@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +27,7 @@ import com.example.interviewtask.ui.theme.customFontFamily
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChipsSection(tags: List<String>) {
+    if(tags.isNotEmpty())
     FlowRow(
         overflow = FlowRowOverflow.Clip,
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -43,9 +45,8 @@ fun ChipsSection(tags: List<String>) {
                 Text(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                     text = it, fontFamily = customFontFamily,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp,
-                    color = Color.Black.copy(alpha = 0.5f),
+                    style = MaterialTheme.typography.labelLarge
+
                 )
             }
         }

@@ -3,6 +3,7 @@ package com.example.interviewtask.ui.composables
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,14 +15,7 @@ import com.example.interviewtask.ui.theme.customFontFamily
 
 @Composable
 fun FeedsContentSection(content: String) {
-    Box {
-        Text(
-            text = content,
-            fontFamily = customFontFamily,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            color = Color.Black
-
-        )
-    }
+    Text(
+        text = content, style = MaterialTheme.typography.bodyLarge
+    )
 }

@@ -15,6 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.interviewtask.data.models.PostModel
 import com.example.interviewtask.data.models.RecentStreams
@@ -22,6 +24,7 @@ import com.example.interviewtask.ui.activities.FeedsTopBar
 import com.example.interviewtask.ui.composables.FeedsCard
 import com.example.interviewtask.ui.composables.Loader
 import com.example.interviewtask.ui.utils.UiState
+import com.example.interviewtask.ui.utils.getDummyData
 import com.example.interviewtask.ui.utils.showToast
 import com.example.interviewtask.ui.viewmodels.FeedsViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -65,6 +68,14 @@ fun FeedsSection(postModel: PostModel, feedsViewModel: FeedsViewModel) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewFeedSectino(modifier: Modifier = Modifier) {
+
+    FeedsSection(postModel = getDummyData(LocalContext.current)!!, feedsViewModel = hiltViewModel<FeedsViewModel>())
+
 }
 
 

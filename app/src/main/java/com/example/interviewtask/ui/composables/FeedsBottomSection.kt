@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,17 +42,19 @@ fun FeedsBottomSection(viewCount: String) {
                     tint = Color.Black.copy(alpha = 0.5f)
                 )
             }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier.padding(5.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(5.dp)
+            ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_views), tint = Color.Black.copy(alpha = 0.5f),
+                    painter = painterResource(id = R.drawable.ic_views),
+                    tint = Color.Black.copy(alpha = 0.5f),
                     contentDescription = "",
                 )
                 Text(
                     text = viewCount,
-                    fontFamily = customFontFamily,
-                    fontWeight = FontWeight.Light,
-                    fontSize = 16.sp,
-                    color = Color.Black.copy(alpha = 0.5f)
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
 

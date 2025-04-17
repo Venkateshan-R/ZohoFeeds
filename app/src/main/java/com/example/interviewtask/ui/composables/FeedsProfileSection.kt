@@ -1,13 +1,17 @@
 package com.example.interviewtask.ui.composables
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,12 +40,10 @@ fun FeedsProfileSection(
     onClick: () -> Unit = {}
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
-            modifier = Modifier.weight(.9f), verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.fillMaxWidth(.9f), verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 modifier = Modifier
@@ -51,61 +53,41 @@ fun FeedsProfileSection(
                 contentDescription = "",
                 placeholder = painterResource(R.drawable.ic_profile)
             )
-
+            Spacer(modifier = Modifier.width(6.dp))
             Column(
-                modifier = Modifier.weight(.1f, fill = true).padding(horizontal = 6.dp)
+                modifier = Modifier
             ) {
                 Text(
                     text = userDetails.name,
-                    fontFamily = customFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    lineHeight = 18.sp
-
+                    style = MaterialTheme.typography.titleMedium
                 )
-                Row(verticalAlignment = Alignment.Top) {
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     if (isConnectMobileShouldShow) {
                         Text(
-                            text = "Connect mobile",
-                            fontFamily = customFontFamily,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 16.sp,
-                            color = Color.Black.copy(alpha = 0.5f),
-                            lineHeight = 18.sp
+                            text = "Connect mobile", style = MaterialTheme.typography.bodyMedium
                         )
                         Text(
                             text = "•",
                             modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(horizontal = 4.dp),
-                            fontFamily = customFontFamily,
-                            fontWeight = FontWeight.Light,
-                            fontSize = 16.sp,
-                            color = Color.Black.copy(alpha = 0.5f),
-                            lineHeight = 18.sp
+                                .align(Alignment.CenterVertically),
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                     Text(
                         text = formattedTime.split(",").get(0),
-                        modifier = Modifier.padding(horizontal = 2.dp),
-                        fontFamily = customFontFamily,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 16.sp,
-                        color = Color.Black.copy(alpha = 0.5f),
-                        lineHeight = 18.sp
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
         }
 
-        if (isMoreEnabled)
-            IconButton(onClick = { onClick.invoke() }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_h_dot),
-                    contentDescription = "",
-                    tint = Color.Black.copy(alpha = 0.5f)
-                )
-            }
+        if (isMoreEnabled) IconButton(onClick = { onClick.invoke() }) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_h_dot),
+                contentDescription = "",
+                tint = Color.Black.copy(alpha = 0.5f)
+            )
+        }
 
     }
 }

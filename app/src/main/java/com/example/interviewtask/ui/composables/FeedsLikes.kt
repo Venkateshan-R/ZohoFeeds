@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,30 +29,21 @@ fun FeedsLikesAndComments(
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_liked),
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(18.dp),
             contentDescription = ""
         )
         Text(
             text = likesCount,
             modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp),
-            fontFamily = customFontFamily,
-            fontWeight = FontWeight.Light,
-            fontSize = 16.sp,
-            color = Color.Black.copy(alpha = 0.5f)
+            style = MaterialTheme.typography.bodyMedium
         )
         Text(
             text = "•",
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp),
-            fontFamily = customFontFamily,
-            fontWeight = FontWeight.Light,
-            fontSize = 16.sp,
-            color = Color.Black.copy(alpha = 0.5f)
+            style = MaterialTheme.typography.bodyMedium
         )
         Text(
-            fontFamily = customFontFamily,
-            fontWeight = FontWeight.Light,
-            fontSize = 16.sp,
-            color = Color.Black.copy(alpha = 0.5f),
+            style = MaterialTheme.typography.bodyMedium,
             text = "$commentsCount Comments",
         )
     }
