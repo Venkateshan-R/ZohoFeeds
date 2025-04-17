@@ -103,13 +103,13 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                                 HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
                             }
                             items(it.data.comments) { it ->
-                                CommentsCard(it){
-                                isVisible.value = true
+                                CommentsCard(it) {
+                                    isVisible.value = true
+                                }
                             }
-                            }
-                           /* CommentSection(it.data) {
-                                isVisible.value = true
-                            }*/
+                            /* CommentSection(it.data) {
+                                 isVisible.value = true
+                             }*/
                         }
                     }
                 }

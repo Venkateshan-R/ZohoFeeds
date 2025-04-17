@@ -35,16 +35,16 @@ fun FeedsLikesAndComments(
         Text(
             text = likesCount,
             modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp),
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             text = "•",
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp),
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             style = MaterialTheme.typography.bodyMedium,
-            text = "$commentsCount Comments",
+            text = "$commentsCount Comments", color = Color.Black
         )
     }
 }

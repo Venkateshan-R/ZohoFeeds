@@ -9,6 +9,6 @@ val Pink80 = Color(0xFFEFB8C8)
 
 val Blue = Color(0xFF313EB8)
 val LightBlue = Color(0xFF007E00)
-val BackgroundLightBlue = Color(0xFFEFECF7)
+val BackgroundLightBlue = Color(0xFFcccfff)
 val ActoinIconButtonColor=Color(0xFFE9E7F2)
 

@@ -21,6 +21,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Blue,
     background = Color.White,
+    surfaceContainerHighest = Color(0xFFfbf8ff),
     secondaryContainer = BackgroundLightBlue,
     surface = Color.White,
 

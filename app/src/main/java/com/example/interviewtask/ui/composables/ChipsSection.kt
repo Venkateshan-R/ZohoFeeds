@@ -39,14 +39,14 @@ fun ChipsSection(tags: List<String>) {
                     .padding(bottom = 0.dp), // optional, if needed
                 shape = RoundedCornerShape(percent = 50),
                 border = BorderStroke(
-                    1.dp, color = Color(0xFFE5E5E5),
-                )
+                    1.dp, color = MaterialTheme.colorScheme.outlineVariant.copy(.4f),
+                ), color = Color.Transparent
             ) {
                 Text(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                     text = it, fontFamily = customFontFamily,
                     style = MaterialTheme.typography.labelLarge
-
+                    , color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }

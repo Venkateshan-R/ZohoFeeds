@@ -25,12 +25,8 @@ fun FeedsCard(stream: Stream, onclick: () -> Unit) {
             .padding(horizontal = 8.dp, vertical = 4.dp)
             .clickable {
                 onclick.invoke()
-            }, shape = RoundedCornerShape(8.dp), colors = CardColors(
-            contentColor = Color.Black,
-            containerColor = Color.White,
-            disabledContainerColor = Color.White,
-            disabledContentColor = Color.Black
-        )
+            },
+        shape = RoundedCornerShape(8.dp)
     ) {
         FeedItemContent(stream)
     }

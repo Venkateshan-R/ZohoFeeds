@@ -162,7 +162,12 @@ fun CustomBottomAppBar(navController: NavController) {
                     )
                 }
 
-            }
+            }, colors = NavigationBarItemColors(selectedIconColor = MaterialTheme.colorScheme.primary, selectedIndicatorColor =
+            MaterialTheme.colorScheme.secondaryContainer, selectedTextColor = MaterialTheme.colorScheme.onSurface
+                , unselectedTextColor = MaterialTheme.colorScheme.outline
+                , unselectedIconColor = MaterialTheme.colorScheme.onSurface
+                , disabledTextColor = MaterialTheme.colorScheme.onSurface
+                , disabledIconColor = MaterialTheme.colorScheme.onSurface,)
             )
         }
     }
