@@ -92,17 +92,25 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
 
                     is UiState.Loading -> Loader()
                     is UiState.Success -> {
-                        FeedItemContent(stream = it.data, false)
-                        HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
-                        CommentsTitleSection(
-                            it.data.comments.size.toString(),
-                            Modifier.padding(horizontal = 16.dp, vertical = 2.dp)
-                        )
-                        HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
-                        CommentSection(it.data) {
-                            isVisible.value = true
+                        LazyColumn {
+                            item {
+                                FeedItemContent(stream = it.data, false)
+                                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
+                                CommentsTitleSection(
+                                    it.data.comments.size.toString(),
+                                    Modifier.padding(horizontal = 16.dp, vertical = 2.dp)
+                                )
+                                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
+                            }
+                            items(it.data.comments) { it ->
+                                CommentsCard(it){
+                                isVisible.value = true
+                            }
+                            }
+                           /* CommentSection(it.data) {
+                                isVisible.value = true
+                            }*/
                         }
-
                     }
                 }
             }
