@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface FeedsRepository {
     fun getPostById(id: String): Flow<UiState<Stream>>
-    fun getAllThePosts(): Flow<UiState<PostModel>>
+   suspend fun getAllThePosts(): PostModel
 }

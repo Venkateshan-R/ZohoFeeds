@@ -23,7 +23,9 @@ fun FeedItemContent(stream: Stream,isMoreEnabled:Boolean=true) {
         FeedsContentSection(stream.content)
         ChipsSection(stream.tags)
         FeedsBottomSection(stream.viewCount)
-        FeedsLikesAndComments(stream.likeCount, stream.comments.size.toString())
+
+        if (isMoreEnabled)
+            FeedsLikesAndComments(stream.likeCount, stream.comments.size.toString())
     }
 }
 

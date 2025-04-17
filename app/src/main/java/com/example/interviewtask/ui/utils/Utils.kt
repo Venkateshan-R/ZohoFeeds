@@ -1,6 +1,7 @@
 package com.example.interviewtask.ui.utils
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.widget.Toast
 import com.example.interviewtask.R
 import com.example.interviewtask.data.models.PostModel
@@ -19,3 +20,9 @@ fun getDummyData(context: Context): PostModel? {
 }
 
 fun getStream(context: Context) = getDummyData(context)!!.recentStreams.streams.get(0)
+
+
+fun isNetworkAvailable(context: Context): Boolean {
+    val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+    return networkInfo != null && networkInfo.isConnected
+}

@@ -62,7 +62,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(detailViewModel: DetailViewModel,navController: NavController) {
+fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController) {
     val context = LocalContext.current
     val dataState = remember { detailViewModel.getSelectedPost() }
     val isVisible = remember { mutableStateOf(false) }
@@ -77,17 +77,19 @@ fun DetailScreen(detailViewModel: DetailViewModel,navController: NavController) 
     }
 
     Surface(modifier = Modifier.fillMaxSize()) {
-
         Column {
             MoreBottomSheet(sheetState = sheetState, isVisible = isVisible.value) {
                 isVisible.value = false
             }
-            DetailTopBar(){
+            DetailTopBar() {
                 detailViewModel.onBackClicked()
             }
             dataState.collectAsState().value.let { it: UiState<Stream> ->
                 when (it) {
-                    is UiState.Failure -> context.showToast(it.error)
+                    is UiState.Failure -> {
+                        context.showToast(it.error)
+                    }
+
                     is UiState.Loading -> Loader()
                     is UiState.Success -> {
                         FeedItemContent(stream = it.data, false)
@@ -111,8 +113,10 @@ fun DetailScreen(detailViewModel: DetailViewModel,navController: NavController) 
 @Preview(showBackground = true)
 @Composable
 fun PreviewDetailScreen(modifier: Modifier = Modifier) {
-    DetailScreen(detailViewModel = hiltViewModel<DetailViewModel>().apply { selectedId = "0" },
-        rememberNavController())
+    DetailScreen(
+        detailViewModel = hiltViewModel<DetailViewModel>().apply { selectedId = "0" },
+        rememberNavController()
+    )
 
 }
 

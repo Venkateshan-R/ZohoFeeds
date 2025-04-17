@@ -8,10 +8,13 @@ import com.example.interviewtask.data.repository.FeedsRepository
 import com.example.interviewtask.ui.navigation.Screens
 import com.example.interviewtask.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,9 +23,39 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedsViewModel @Inject constructor(val repository: FeedsRepository) : ViewModel() {
 
+    val isRefreshing = MutableStateFlow<Boolean>(false)
+
     var navigationEvent = MutableSharedFlow<String>()
-    var postStateFlow: StateFlow<UiState<PostModel>> = repository.getAllThePosts()
-        .stateIn(viewModelScope, started = SharingStarted.Lazily, UiState.Loading)
+
+    private var _feedsStateFlow: MutableStateFlow<UiState<PostModel>> =
+        MutableStateFlow(UiState.Loading)
+
+    var feedsStateFlow = _feedsStateFlow as StateFlow<UiState<PostModel>>
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        _feedsStateFlow.value = UiState.Failure(throwable.message.toString())
+        isRefreshing.value = false
+    }
+
+    init {
+        getAllTheFeeds()
+    }
+
+    fun refreshFeeds() {
+        getAllTheFeeds(true)
+    }
+
+    private fun getAllTheFeeds(isRefresh: Boolean = false) {
+        viewModelScope.launch(exceptionHandler) {
+            if (isRefresh.not()) _feedsStateFlow.emit(UiState.Loading)
+            val postModel: PostModel = repository.getAllThePosts()
+            _feedsStateFlow.emit(UiState.Success(postModel))
+            println("sdfa viewmode success")
+
+            if (isRefresh) isRefreshing.value = false
+
+        }
+    }
 
     fun feedsItemClicked(stream: Stream) {
         viewModelScope.launch {

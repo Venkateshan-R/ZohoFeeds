@@ -10,6 +10,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -70,9 +72,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             InterviewTaskTheme {
-                Surface {
-                    Main()
-                }
+//                Box(modifier = Modifier.background(color = Color.Red)) {
+                Main()
+//                }
             }
         }
     }
@@ -81,17 +83,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Main() {
     val navController = rememberNavController()
-    Scaffold(containerColor = MaterialTheme.colorScheme.secondaryContainer,
+
+    Scaffold(contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
+        containerColor = Color.Transparent,
+        contentColor = Color.Black,
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             val currentRoute =
                 navController.currentBackStackEntryAsState().value?.destination?.route
-            /*  AnimatedVisibility(visible = currentRoute != Screens.Detail.route,
-                  enter = slideInVertically { it },
-                  exit = slideOutVertically { it }) {*/
             if (currentRoute != Screens.Detail.route)
                 CustomBottomAppBar(navController)
-//            }
         },
         floatingActionButton = {
 
@@ -131,8 +132,10 @@ fun CustomBottomAppBar(navController: NavController) {
         bottomBarItemsList.forEachIndexed { index, bottomBarItem ->
             NavigationBarItem(label = {
                 Row {
-                    Text(text = bottomBarItem.title, maxLines = 1, overflow = TextOverflow.Visible,
-                        style = MaterialTheme.typography.labelMedium)
+                    Text(
+                        text = bottomBarItem.title, maxLines = 1, overflow = TextOverflow.Visible,
+                        style = MaterialTheme.typography.labelMedium
+                    )
                 }
             }, selected = currentRoute == bottomBarItem.route, onClick = {
                 selectedItemIndex.value = index
@@ -159,15 +162,7 @@ fun CustomBottomAppBar(navController: NavController) {
                     )
                 }
 
-            }, colors = NavigationBarItemColors(
-                selectedIconColor = MaterialTheme.colorScheme.primary,
-                selectedIndicatorColor = MaterialTheme.colorScheme.secondaryContainer,
-                selectedTextColor = MaterialTheme.colorScheme.onBackground,
-                unselectedIconColor = MaterialTheme.colorScheme.onBackground,
-                unselectedTextColor = MaterialTheme.colorScheme.onBackground,
-                disabledIconColor = MaterialTheme.colorScheme.onBackground,
-                disabledTextColor = MaterialTheme.colorScheme.onBackground
-            )
+            }
             )
         }
     }
@@ -177,45 +172,46 @@ fun CustomBottomAppBar(navController: NavController) {
 @Composable
 fun FeedsTopBar() {
 
-    TopAppBar(windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp), colors = TopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-        scrolledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-        navigationIconContentColor = MaterialTheme.colorScheme.primary,
-        actionIconContentColor = MaterialTheme.colorScheme.primary,
-        titleContentColor = MaterialTheme.colorScheme.onBackground
-    ), title = {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 6.dp)
-        ) {
-            Text(
-                text = "Feeds", style = MaterialTheme.typography.titleLarge
-            )
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = "",
-            )
-        }
-    }, actions = {
-        TopBarIcon(iconResource = R.drawable.ic_search) {
+    TopAppBar(
+        colors = TopAppBarColors(
+            containerColor = Color.Transparent,
+            scrolledContainerColor = Color.Black,
+            navigationIconContentColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            actionIconContentColor = MaterialTheme.colorScheme.primary
+        ), title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 6.dp)
+            ) {
+                Text(
+                    text = "Feeds", style = MaterialTheme.typography.titleLarge
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = "",
+                )
+            }
+        }, actions = {
+            TopBarIcon(iconResource = R.drawable.ic_search) {
 
-        }
-        TopBarIcon(iconResource = R.drawable.ic_appbar_more) {
+            }
+            TopBarIcon(iconResource = R.drawable.ic_appbar_more) {
 
-        }
-        Spacer(modifier = Modifier.padding(horizontal = 4.dp))
-    }, navigationIcon = {
-        TopBarIcon(iconResource = R.drawable.ic_menu) {
+            }
+            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+        }, navigationIcon = {
+            TopBarIcon(iconResource = R.drawable.ic_menu) {
 
-        }
-    })
+            }
+        })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailTopBar(onBackClick : ()->Unit) {
+fun DetailTopBar(onBackClick: () -> Unit) {
     Surface {
-        TopAppBar(windowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp), title = {
+        TopAppBar(title = {
             Text(
                 text = "Post",
                 style = MaterialTheme.typography.titleLarge,
