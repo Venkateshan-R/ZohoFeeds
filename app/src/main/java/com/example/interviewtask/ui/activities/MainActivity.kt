@@ -159,7 +159,6 @@ fun CustomBottomAppBar(navController: NavController) {
 
                 BadgedBox(
                     badge = {
-                        println("curent ro $currentRoute == ${Screens.Notifications.route}")
                         if (bottomBarItem.route == Screens.Notifications.route)
                             Badge { Text("3") }
                     }

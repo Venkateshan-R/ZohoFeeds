@@ -38,6 +38,4 @@ fun Float.formatCount() = when {
         (if (formattedText.endsWith(".0")) formattedText.dropLast(2) else formattedText) + "M"
 
     }
-}.also {
-    println("test# $this")
 }

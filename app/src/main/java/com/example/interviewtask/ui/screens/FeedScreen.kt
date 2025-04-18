@@ -48,7 +48,6 @@ fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
 
     SwipeRefresh(viewModel = feedsViewModel) {
         feedsViewModel.feedsStateFlow.collectAsState().value.let {
-            println("sdfa " + it.toString())
             when (it) {
                 is UiState.Loading -> {
                     Loader()
@@ -75,9 +74,7 @@ fun SwipeRefresh(
     viewModel: FeedsViewModel, content: @Composable () -> Unit
 ) {
     PullToRefreshBox(
-        isRefreshing = viewModel.isRefreshing.collectAsState().value.also {
-            println("££ collecting $it")
-        }, onRefresh = {
+        isRefreshing = viewModel.isRefreshing.collectAsState().value, onRefresh = {
             viewModel.refreshFeeds()
         }, modifier = Modifier
     ) {
