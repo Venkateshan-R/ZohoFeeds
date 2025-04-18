@@ -27,28 +27,29 @@ import com.example.interviewtask.ui.theme.customFontFamily
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ChipsSection(tags: List<String>) {
-    if(tags.isNotEmpty())
-    FlowRow(
-        overflow = FlowRowOverflow.Clip,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        tags.forEach {
-            Surface(
-                modifier = Modifier
-                    .padding(bottom = 0.dp), // optional, if needed
-                shape = RoundedCornerShape(percent = 50),
-                border = BorderStroke(
-                    1.dp, color = MaterialTheme.colorScheme.outlineVariant.copy(.4f),
-                ), color = Color.Transparent
-            ) {
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                    text = it, fontFamily = customFontFamily,
-                    style = MaterialTheme.typography.labelLarge
-                    , color = MaterialTheme.colorScheme.onSurface
-                )
+    if (tags.isNotEmpty())
+        FlowRow(
+            overflow = FlowRowOverflow.Clip,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            tags.forEach {
+                Surface(
+                    modifier = Modifier
+                        .padding(bottom = 0.dp), // optional, if needed
+                    shape = RoundedCornerShape(percent = 50),
+                    border = BorderStroke(
+                        0.5.dp, color = MaterialTheme.colorScheme.outline,
+                    ), color = MaterialTheme.colorScheme.surface
+                ) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                        text = it,
+                        fontFamily = customFontFamily,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
             }
         }
-    }
 }

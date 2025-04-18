@@ -21,9 +21,12 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Blue,
     background = Color.White,
-    surfaceContainerHighest = Color(0xFFfbf8ff),
     secondaryContainer = BackgroundLightBlue,
-    surface = Color.White,
+    surface =  Color(0xFFf7f7fa),
+    onSurface =  Color(0xFF1C1B1F),
+    onSurfaceVariant =  Color(0xFF1C1B1F),
+    outlineVariant =  Color(0xFF000000).copy(.4f),
+    outline =  Color(0xFF000000).copy(.2f),
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

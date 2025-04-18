@@ -200,7 +200,7 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
             Icon(
                 painter = painterResource(id = R.drawable.ic_like),
                 contentDescription = "",
-                tint = Color.Black.copy(alpha = 0.5f)
+                tint = MaterialTheme.colorScheme.outlineVariant
             )
             VerticalDivider(
                 modifier = Modifier.height(16.dp)
@@ -208,12 +208,13 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
             Icon(
                 painter = painterResource(id = R.drawable.ic_reply),
                 contentDescription = "",
-                tint = Color.Black.copy(alpha = 0.5f)
+                tint = MaterialTheme.colorScheme.outlineVariant
             )
 
             Text(
                 text = "•  ${(comment.replyCount.toFloatOrNull() ?: 0.0f).formatCount()} Replies",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -245,7 +246,9 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
 
             )
             Text(
-                text =  (comment.likeCount.toFloatOrNull() ?: 0.0f).formatCount(), style = MaterialTheme.typography.bodyMedium
+                text = (comment.likeCount.toFloatOrNull() ?: 0.0f).formatCount(),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

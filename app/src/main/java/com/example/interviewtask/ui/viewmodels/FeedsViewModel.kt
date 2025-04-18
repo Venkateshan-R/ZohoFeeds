@@ -49,7 +49,6 @@ class FeedsViewModel @Inject constructor(val repository: FeedsRepository) : View
             println("sdfa viewmode success")
 
             if (isRefresh) isRefreshing.value = false
-
         }
     }
 

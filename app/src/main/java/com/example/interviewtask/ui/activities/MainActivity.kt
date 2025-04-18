@@ -134,7 +134,8 @@ fun CustomBottomAppBar(navController: NavController) {
                 Row {
                     Text(
                         text = bottomBarItem.title, maxLines = 1, overflow = TextOverflow.Visible,
-                        style = MaterialTheme.typography.labelMedium
+                        style = if(currentRoute == bottomBarItem.route)  MaterialTheme.typography.labelMedium
+                        else  MaterialTheme.typography.labelSmall
                     )
                 }
             }, selected = currentRoute == bottomBarItem.route, onClick = {
@@ -174,7 +175,7 @@ fun CustomBottomAppBar(navController: NavController) {
                 selectedIndicatorColor =
                 MaterialTheme.colorScheme.secondaryContainer,
                 selectedTextColor = MaterialTheme.colorScheme.onSurface,
-                unselectedTextColor = MaterialTheme.colorScheme.outline,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
                 unselectedIconColor = MaterialTheme.colorScheme.onSurface,
                 disabledTextColor = MaterialTheme.colorScheme.onSurface,
                 disabledIconColor = MaterialTheme.colorScheme.onSurface,
@@ -191,7 +192,7 @@ fun FeedsTopBar() {
     TopAppBar(
         colors = TopAppBarColors(
             containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Black,
+            scrolledContainerColor =  Color.Transparent,
             navigationIconContentColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onSurface,
             actionIconContentColor = MaterialTheme.colorScheme.primary

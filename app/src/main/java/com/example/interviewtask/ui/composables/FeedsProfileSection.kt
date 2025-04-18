@@ -59,23 +59,32 @@ fun FeedsProfileSection(
             ) {
                 Text(
                     text = userDetails.name,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
                     if (isConnectMobileShouldShow) {
                         Text(
-                            text = "Connect mobile", style = MaterialTheme.typography.bodyMedium
+                            text = "Connect mobile", style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
                             text = "•",
                             modifier = Modifier
                                 .align(Alignment.CenterVertically),
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+
                         )
                     }
                     Text(
                         text = formattedTime.split(",").get(0),
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+
                     )
                 }
             }
@@ -85,10 +94,9 @@ fun FeedsProfileSection(
             Icon(
                 painter = painterResource(id = R.drawable.ic_h_dot),
                 contentDescription = "",
-                tint = Color.Black.copy(alpha = 0.5f)
+                tint = MaterialTheme.colorScheme.outline
             )
         }
-
     }
 }
 

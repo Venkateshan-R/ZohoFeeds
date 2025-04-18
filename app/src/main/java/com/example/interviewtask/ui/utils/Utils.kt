@@ -7,13 +7,13 @@ import com.example.interviewtask.R
 import com.example.interviewtask.data.models.PostModel
 import com.google.gson.Gson
 
-fun Context.showToast(message : String){
-    Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+fun Context.showToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
 
 fun getDummyData(context: Context): PostModel? {
-     val jsonString = context.resources.openRawResource(R.raw.sample_response)
+    val jsonString = context.resources.openRawResource(R.raw.sample_response)
         .bufferedReader().use { it.readText() }
 
     return Gson().fromJson(jsonString, PostModel::class.java)
@@ -23,16 +23,23 @@ fun getStream(context: Context) = getDummyData(context)!!.recentStreams.streams.
 
 
 fun isNetworkAvailable(context: Context): Boolean {
-    val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+    val networkInfo =
+        (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
     return networkInfo != null && networkInfo.isConnected
 }
 
 fun Float.formatCount() = when {
     this < 1000 -> "${this.toInt()}"
     this < 1000000 -> {
-        "%.1f".format(this / 1000) + "K"
+        val formattedText = "%.1f".format(this / 1000)
+        (if (formattedText.endsWith(".0")) formattedText.dropLast(2) else formattedText) + "K"
     }
-    else -> "%.1f".format(this / 1000000) + "M"
+
+    else -> {
+        val formattedText = "%.1f".format(this / 1000000)
+        (if (formattedText.endsWith(".0")) formattedText.dropLast(2) else formattedText) + "M"
+
+    }
 }.also {
     println("test# $this")
 }
