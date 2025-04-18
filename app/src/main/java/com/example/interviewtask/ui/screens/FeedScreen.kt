@@ -61,17 +61,15 @@ fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
                     FeedsSection(it.data, feedsViewModel)
                 }
 
-                    is UiState.Failure -> {
-                        LaunchedEffect(it.error) {
-                            context.showToast(it.error)
-                        }
-                        ErrorScreen()
+                is UiState.Failure -> {
+                    LaunchedEffect(it.error) {
+                        context.showToast(it.error)
                     }
+                    ErrorScreen()
                 }
             }
         }
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

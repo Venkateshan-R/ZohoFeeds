@@ -1,28 +1,17 @@
 package com.example.interviewtask.ui.viewmodels
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.interviewtask.data.models.PostModel
 import com.example.interviewtask.data.models.Stream
 import com.example.interviewtask.data.repository.FeedsRepository
 import com.example.interviewtask.ui.navigation.Screens
-import com.example.interviewtask.ui.screens.Main
-import com.example.interviewtask.ui.screens.data
-import com.example.interviewtask.ui.screens.inner
 import com.example.interviewtask.ui.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
