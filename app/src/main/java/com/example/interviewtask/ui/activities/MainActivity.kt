@@ -138,8 +138,15 @@ fun CustomBottomAppBar(navController: NavController) {
                     )
                 }
             }, selected = currentRoute == bottomBarItem.route, onClick = {
+
                 selectedItemIndex.value = index
-                navController.navigate(bottomBarItem.title)
+                navController.navigate(bottomBarItem.route) {
+                    launchSingleTop = true
+                    restoreState = true
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                }
             }, icon = {
                 val icon =
                     if (currentRoute == bottomBarItem.route) bottomBarItem.selectedIconId else bottomBarItem.defaultIconId
@@ -162,12 +169,16 @@ fun CustomBottomAppBar(navController: NavController) {
                     )
                 }
 
-            }, colors = NavigationBarItemColors(selectedIconColor = MaterialTheme.colorScheme.primary, selectedIndicatorColor =
-            MaterialTheme.colorScheme.secondaryContainer, selectedTextColor = MaterialTheme.colorScheme.onSurface
-                , unselectedTextColor = MaterialTheme.colorScheme.outline
-                , unselectedIconColor = MaterialTheme.colorScheme.onSurface
-                , disabledTextColor = MaterialTheme.colorScheme.onSurface
-                , disabledIconColor = MaterialTheme.colorScheme.onSurface,)
+            }, colors = NavigationBarItemColors(
+                selectedIconColor = MaterialTheme.colorScheme.primary,
+                selectedIndicatorColor =
+                MaterialTheme.colorScheme.secondaryContainer,
+                selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                unselectedTextColor = MaterialTheme.colorScheme.outline,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                disabledIconColor = MaterialTheme.colorScheme.onSurface,
+            )
             )
         }
     }

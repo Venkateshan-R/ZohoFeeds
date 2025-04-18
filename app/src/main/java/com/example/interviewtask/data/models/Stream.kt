@@ -1,5 +1,7 @@
 package com.example.interviewtask.data.models
 
+import androidx.compose.runtime.Stable
+
 data class Stream(
     val id: String,
     val userDetails: UserDetails,

@@ -56,6 +56,7 @@ import com.example.interviewtask.ui.composables.FeedsProfileSection
 import com.example.interviewtask.ui.composables.Loader
 import com.example.interviewtask.ui.theme.customFontFamily
 import com.example.interviewtask.ui.utils.UiState
+import com.example.interviewtask.ui.utils.formatCount
 import com.example.interviewtask.ui.utils.showToast
 import com.example.interviewtask.ui.viewmodels.DetailViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -211,7 +212,7 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
             )
 
             Text(
-                text = "•  ${comment.replyCount} Replies",
+                text = "•  ${(comment.replyCount.toFloatOrNull() ?: 0.0f).formatCount()} Replies",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -244,7 +245,7 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
 
             )
             Text(
-                text = comment.likeCount, style = MaterialTheme.typography.bodyMedium
+                text =  (comment.likeCount.toFloatOrNull() ?: 0.0f).formatCount(), style = MaterialTheme.typography.bodyMedium
             )
         }
     }

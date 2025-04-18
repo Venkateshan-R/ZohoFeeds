@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.interviewtask.R
 import com.example.interviewtask.ui.theme.customFontFamily
+import com.example.interviewtask.ui.utils.formatCount
 
 @Composable
 fun FeedsLikesAndComments(
@@ -33,7 +34,7 @@ fun FeedsLikesAndComments(
             contentDescription = ""
         )
         Text(
-            text = likesCount,
+            text = (likesCount.toFloatOrNull() ?: 0.0f).formatCount(),
             modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp),
             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface
         )
@@ -44,7 +45,8 @@ fun FeedsLikesAndComments(
         )
         Text(
             style = MaterialTheme.typography.bodyMedium,
-            text = "$commentsCount Comments", color = Color.Black
+            text = "${(commentsCount.toFloatOrNull() ?: 0.0f).formatCount()} Comments",
+            color = Color.Black
         )
     }
 }

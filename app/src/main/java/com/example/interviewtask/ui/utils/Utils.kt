@@ -26,3 +26,13 @@ fun isNetworkAvailable(context: Context): Boolean {
     val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
     return networkInfo != null && networkInfo.isConnected
 }
+
+fun Float.formatCount() = when {
+    this < 1000 -> "${this.toInt()}"
+    this < 1000000 -> {
+        "%.1f".format(this / 1000) + "K"
+    }
+    else -> "%.1f".format(this / 1000000) + "M"
+}.also {
+    println("test# $this")
+}

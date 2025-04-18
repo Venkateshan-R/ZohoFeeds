@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.interviewtask.R
 import com.example.interviewtask.ui.theme.customFontFamily
+import com.example.interviewtask.ui.utils.formatCount
 
 @Composable
 fun FeedsBottomSection(viewCount: String) {
@@ -53,7 +54,7 @@ fun FeedsBottomSection(viewCount: String) {
                     contentDescription = "",
                 )
                 Text(
-                    text = viewCount,
+                    text = (viewCount.toFloatOrNull() ?: 0.0f).formatCount() ,
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
