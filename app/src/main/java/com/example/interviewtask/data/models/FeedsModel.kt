@@ -1,5 +1,5 @@
 package com.example.interviewtask.data.models
 
-data class PostModel(
+data class FeedsModel(
     val recentStreams: RecentStreams,
 )

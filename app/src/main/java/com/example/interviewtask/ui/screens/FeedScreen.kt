@@ -2,7 +2,6 @@ package com.example.interviewtask.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,19 +18,15 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.interviewtask.data.models.PostModel
+import com.example.interviewtask.data.models.FeedsModel
 import com.example.interviewtask.ui.activities.FeedsTopBar
 import com.example.interviewtask.ui.composables.FeedsCard
 import com.example.interviewtask.ui.composables.Loader
@@ -80,8 +75,9 @@ fun SwipeRefresh(
     viewModel: FeedsViewModel, content: @Composable () -> Unit
 ) {
     PullToRefreshBox(
-        isRefreshing = viewModel.isRefreshing.collectAsState().value, onRefresh = {
-            viewModel.isRefreshing.value = true
+        isRefreshing = viewModel.isRefreshing.collectAsState().value.also {
+            println("££ collecting $it")
+        }, onRefresh = {
             viewModel.refreshFeeds()
         }, modifier = Modifier
     ) {
@@ -105,9 +101,9 @@ fun ErrorScreen() {
 }
 
 @Composable
-fun FeedsSection(postModel: PostModel, feedsViewModel: FeedsViewModel) {
+fun FeedsSection(feedsModel: FeedsModel, feedsViewModel: FeedsViewModel) {
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
@@ -119,13 +115,11 @@ fun FeedsSection(postModel: PostModel, feedsViewModel: FeedsViewModel) {
                 )
             )
     ) {
-        Column {
-            FeedsTopBar()
-            LazyColumn(Modifier.fillMaxSize()) {
-                items(postModel.recentStreams.streams) {
-                    FeedsCard(it) {
-                        feedsViewModel.feedsItemClicked(it)
-                    }
+        FeedsTopBar()
+        LazyColumn(Modifier.fillMaxSize()) {
+            items(feedsModel.recentStreams.streams) {
+                FeedsCard(it) {
+                    feedsViewModel.feedsItemClicked(it)
                 }
             }
         }
@@ -137,7 +131,7 @@ fun FeedsSection(postModel: PostModel, feedsViewModel: FeedsViewModel) {
 fun PreviewFeedSectino(modifier: Modifier = Modifier) {
 
     FeedsSection(
-        postModel = getDummyData(LocalContext.current)!!,
+        feedsModel = getDummyData(LocalContext.current)!!,
         feedsViewModel = hiltViewModel<FeedsViewModel>()
     )
 

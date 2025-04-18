@@ -65,16 +65,15 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController) {
     val context = LocalContext.current
-    val dataState = remember { detailViewModel.getSelectedPost() }
     val isVisible = remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
 
     LaunchedEffect(key1 = true) {
+        detailViewModel.getSelectedFeed()
         detailViewModel.navigationEvent.collectLatest {
             navController.popBackStack()
         }
-
     }
 
     Surface(modifier = Modifier.fillMaxSize()) {
@@ -85,10 +84,12 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
             DetailTopBar() {
                 detailViewModel.onBackClicked()
             }
-            dataState.collectAsState().value.let { it: UiState<Stream> ->
+            detailViewModel.selectedFeedStateFlow.collectAsState().value.let { it: UiState<Stream> ->
                 when (it) {
                     is UiState.Failure -> {
-                        context.showToast(it.error)
+                        LaunchedEffect(it) {
+                            context.showToast(it.error)
+                        }
                     }
 
                     is UiState.Loading -> Loader()
@@ -108,9 +109,6 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                                     isVisible.value = true
                                 }
                             }
-                            /* CommentSection(it.data) {
-                                 isVisible.value = true
-                             }*/
                         }
                     }
                 }
