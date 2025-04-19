@@ -26,7 +26,7 @@ fun isNetworkAvailable(context: Context): Boolean {
     return networkInfo != null && networkInfo.isConnected
 }
 
-fun Float.formatCount() = when {
+fun Float.formatCount(): String = when {
     this < 1000 -> "${this.toInt()}"
     this < 1000000 -> {
         val formattedText = "%.1f".format(this / 1000)

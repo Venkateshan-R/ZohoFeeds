@@ -5,5 +5,5 @@ import com.example.interviewtask.data.models.Stream
 
 interface FeedsRepository {
     suspend fun getFeedById(id: String): Stream
-    suspend fun fetchAllTheFeeds(): FeedsModel
+     suspend fun fetchAllTheFeeds(): FeedsModel
 }

@@ -18,21 +18,25 @@ data class Stream(
     val isCurrentUserLiked: String,
     val tags: List<String>,
     val attachments: List<String>,
-    val reason: Reason,
+    val reason: Reason?,
 ) {
     fun toStreamsEntity(): StreamsEntity {
         return StreamsEntity(
             id,
-            userDetails,
+            userDetails.toUserDetailsEntity(),
+            partition.toPartitionEntity(),
             content,
             time,
             streamModifiedTime,
             formatedTime,
             viewCount,
+            comments.map { it.toCommentEntity() },
             url,
             likeCount,
             isCurrentUserLiked,
-            reason
+            tags,
+            attachments,
+            reason?.toReasonEntity()
         )
     }
 }

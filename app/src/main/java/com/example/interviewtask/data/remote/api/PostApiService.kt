@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface PostApiService {
     @GET("b/3HDI")
-    suspend fun getPosts(): FeedsModel
+    suspend fun getPosts(): FeedsModel?
 }

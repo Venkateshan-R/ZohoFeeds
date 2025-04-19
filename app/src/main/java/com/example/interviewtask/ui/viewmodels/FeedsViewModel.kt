@@ -32,6 +32,7 @@ class FeedsViewModel @Inject constructor(val repository: FeedsRepository) : View
     val feedsStateFlow = _feedsStateFlow as StateFlow<UiState<FeedsModel>>
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
         _feedsStateFlow.value = UiState.Failure(throwable.message.toString())
         viewModelScope.launch {
             delay(300)

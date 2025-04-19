@@ -14,17 +14,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalDatabaseModule {
+
     @Provides
     @Singleton
-    fun provideDatabase(application: Application): StreamsDatabase =
+    fun provideFeedsDao(application: Application): FeedsDao =
         Room.databaseBuilder(
             application,
             StreamsDatabase::class.java,
             "streams_database"
-        ).build()
-
-    @Provides
-    @Singleton
-    fun provideFeedsDao(database: StreamsDatabase): FeedsDao =
-        database.feedsDao()
+        ).fallbackToDestructiveMigration().build().feedsDao()
 }
