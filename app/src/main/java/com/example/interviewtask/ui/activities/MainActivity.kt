@@ -47,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -86,7 +87,6 @@ fun Main() {
 
     Scaffold(contentWindowInsets = WindowInsets(0.dp, 0.dp, 0.dp, 0.dp),
         containerColor = Color.Transparent,
-        contentColor = Color.Black,
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             val currentRoute =
@@ -128,7 +128,7 @@ fun CustomBottomAppBar(navController: NavController) {
         )
     }
 
-    BottomAppBar(containerColor = Color.White) {
+    BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
         bottomBarItemsList.forEachIndexed { index, bottomBarItem ->
             NavigationBarItem(label = {
                 Row {
@@ -137,8 +137,6 @@ fun CustomBottomAppBar(navController: NavController) {
                         maxLines = 1,
                         overflow = TextOverflow.Visible,
                         style = MaterialTheme.typography.labelSmall,
-                        color = if(currentRoute == bottomBarItem.route) MaterialTheme.colorScheme.onSurface
-                        else  MaterialTheme.colorScheme.onSurface.copy(.7f)
                     )
                 }
             }, selected = currentRoute == bottomBarItem.route, onClick = {
@@ -159,7 +157,6 @@ fun CustomBottomAppBar(navController: NavController) {
                     contentDescription = "",
                 )
 
-
                 BadgedBox(
                     badge = {
                         if (bottomBarItem.route == Screens.Notifications.route)
@@ -177,7 +174,7 @@ fun CustomBottomAppBar(navController: NavController) {
                 selectedIndicatorColor =
                 MaterialTheme.colorScheme.secondaryContainer,
                 selectedTextColor = MaterialTheme.colorScheme.onSurface,
-                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 unselectedIconColor = MaterialTheme.colorScheme.onSurface,
                 disabledTextColor = MaterialTheme.colorScheme.onSurface,
                 disabledIconColor = MaterialTheme.colorScheme.onSurface,
@@ -204,7 +201,8 @@ fun FeedsTopBar() {
                 modifier = Modifier.padding(horizontal = 6.dp)
             ) {
                 Text(
-                    text = "Feeds", style = MaterialTheme.typography.titleLarge
+                    text = stringResource(R.string.feeds), style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowDown,
@@ -232,10 +230,11 @@ fun DetailTopBar(onBackClick: () -> Unit) {
     Surface {
         TopAppBar(title = {
             Text(
-                text = "Post",
+                text = stringResource(R.string.post),
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(horizontal = 6.dp)
-            )
+                modifier = Modifier.padding(horizontal = 6.dp),
+                color = MaterialTheme.colorScheme.onSurface,
+                )
         }, actions = {
             TopBarIcon(iconResource = R.drawable.ic_appbar_more) {
 
@@ -259,9 +258,9 @@ fun TopBarIcon(iconResource: Int, onClick: () -> Unit) {
     FilledIconButton(
         onClick = onClick, colors = IconButtonColors(
             contentColor = MaterialTheme.colorScheme.primary,
-            containerColor = ActoinIconButtonColor,
+            containerColor = MaterialTheme.colorScheme.secondary,
             disabledContentColor = MaterialTheme.colorScheme.primary,
-            disabledContainerColor = ActoinIconButtonColor
+            disabledContainerColor = MaterialTheme.colorScheme.secondary
         )
     ) {
         Icon(painter = painterResource(iconResource), contentDescription = "")

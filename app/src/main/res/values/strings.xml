@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">InterviewTask</string>
+    <string name="app_name">ZohoFeeds</string>
+    <string name="data_not_found">Data not found</string>
+    <string name="swipe_down_to_refresh">Swipe down to refresh</string>
+    <string name="feeds">Feeds</string>
+    <string name="post">Post</string>
+    <string name="dot">•</string>
+    <string name="comments">%1$s Comments</string>
+    <string name="connect_mobile">Connect mobile</string>
+    <string name="replies">•  %1$s Replies</string>
 </resources>

@@ -15,6 +15,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,9 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.interviewtask.R
 import com.example.interviewtask.data.models.FeedsModel
 import com.example.interviewtask.ui.activities.FeedsTopBar
 import com.example.interviewtask.ui.composables.FeedsCard
@@ -73,10 +77,18 @@ fun FeedScreen(feedsViewModel: FeedsViewModel, controller: NavController) {
 fun SwipeRefresh(
     viewModel: FeedsViewModel, content: @Composable () -> Unit
 ) {
-    PullToRefreshBox(
+    val rememberPUlledState = rememberPullToRefreshState()
+    PullToRefreshBox(indicator = {
+        Indicator(
+            modifier = Modifier.align(Alignment.TopCenter),
+            isRefreshing = viewModel.isRefreshing.collectAsState().value,
+            state =rememberPUlledState, containerColor = MaterialTheme.colorScheme.surface,
+            color = MaterialTheme.colorScheme.primary
+        )
+    },
         isRefreshing = viewModel.isRefreshing.collectAsState().value, onRefresh = {
             viewModel.refreshFeeds()
-        }, modifier = Modifier
+        }, modifier = Modifier, state = rememberPUlledState
     ) {
         content()
     }
@@ -92,8 +104,8 @@ fun ErrorScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Data not found", style = MaterialTheme.typography.bodyLarge)
-        Text(text = "Swipe down to refresh", style = MaterialTheme.typography.bodyLarge)
+        Text(text = stringResource(R.string.data_not_found), style = MaterialTheme.typography.bodyLarge)
+        Text(text = stringResource(R.string.swipe_down_to_refresh), style = MaterialTheme.typography.bodyLarge)
     }
 }
 

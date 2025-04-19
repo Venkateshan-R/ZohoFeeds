@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -68,7 +69,6 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
     val isVisible = remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-
     LaunchedEffect(key1 = true) {
         detailViewModel.getSelectedFeed()
         detailViewModel.navigationEvent.collectLatest {
@@ -77,10 +77,8 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
     }
 
     Surface(modifier = Modifier.fillMaxSize()) {
+
         Column {
-            MoreBottomSheet(sheetState = sheetState, isVisible = isVisible.value) {
-                isVisible.value = false
-            }
             DetailTopBar() {
                 detailViewModel.onBackClicked()
             }
@@ -97,11 +95,17 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                         LazyColumn {
                             item {
                                 FeedItemContent(stream = it.data, false)
-                                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
+                                HorizontalDivider(
+                                    thickness = 0.5.dp,
+                                    color = MaterialTheme.colorScheme.outline
+                                )
                                 CommentsTitleSection(
                                     it.data.comments.size.toString()
                                 )
-                                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
+                                HorizontalDivider(
+                                    thickness = 0.5.dp,
+                                    color = MaterialTheme.colorScheme.outline
+                                )
                             }
                             items(it.data.comments) { it ->
                                 CommentsCard(it) {
@@ -112,6 +116,9 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                     }
                 }
             }
+        }
+        MoreBottomSheet(sheetState = sheetState, isVisible = isVisible.value) {
+            isVisible.value = false
         }
     }
 }
@@ -140,7 +147,7 @@ fun CommentsTitleSection(commentsCount: String) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "$commentsCount Comments",
+                text = stringResource(R.string.comments,commentsCount.toInt()),
                 fontFamily = customFontFamily,
                 style = MaterialTheme.typography.titleSmall
             )
@@ -148,7 +155,7 @@ fun CommentsTitleSection(commentsCount: String) {
                 modifier = Modifier.rotate(90f),
                 painter = painterResource(id = R.drawable.ic_sort_arrow),
                 contentDescription = "",
-                tint = Color.Black.copy(alpha = 0.5f),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -184,7 +191,11 @@ fun CommentsCard(comment: Comment, onClick: () -> Unit) {
                 Spacer(Modifier)
             }
         }
-        HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f), modifier = Modifier.padding(start = 40.dp))
+        HorizontalDivider(
+            thickness = 0.5.dp,
+            color = MaterialTheme.colorScheme.outline,
+            modifier = Modifier.padding(start = 40.dp)
+        )
     }
 }
 
@@ -204,31 +215,35 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
             Icon(
                 painter = painterResource(id = R.drawable.ic_like),
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.onSurface.copy(.9f)
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
             VerticalDivider(
                 modifier = Modifier.height(12.dp),
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant
 
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_reply),
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.onSurface.copy(.9f)
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Text(
-                text = "•  ${(comment.replyCount.toFloatOrNull() ?: 0.0f).formatCount()} Replies",
+                text = stringResource(
+                    R.string.replies,
+                    (comment.replyCount.toFloatOrNull() ?: 0.0f).formatCount()
+                ),
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f),
-                maxLines = 1
-                        ,overflow = TextOverflow.Ellipsis
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
 
             )
         }
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
 //            modifier = Modifier.weight(.3f)
-            ) {
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_liked),
                 contentDescription = "",
@@ -259,9 +274,9 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
             Text(
                 text = (comment.likeCount.toFloatOrNull() ?: 0.0f).formatCount(),
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f),
-                        maxLines = 1
-                ,overflow = TextOverflow.Ellipsis
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -272,16 +287,24 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
 fun MoreBottomSheet(
     sheetState: SheetState, isVisible: Boolean, onDismiss: () -> Unit
 ) {
-    if (isVisible) ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+    if (isVisible) ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        containerColor = MaterialTheme.colorScheme.surface
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp)
-                .background(color = Color.White, shape = RoundedCornerShape(8.dp))
+                .background(
+                    color = MaterialTheme.colorScheme.background,
+                    shape = RoundedCornerShape(8.dp)
+                )
         ) {
             IconWithLabel(R.drawable.ic_link, "Copy URL")
             HorizontalDivider(
-                color = Color.LightGray.copy(alpha = 0.3f),
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.outline.copy(0.05f),
                 modifier = Modifier.padding(horizontal = 12.dp)
             )
             IconWithLabel(R.drawable.ic_copy, "Copy this comment")

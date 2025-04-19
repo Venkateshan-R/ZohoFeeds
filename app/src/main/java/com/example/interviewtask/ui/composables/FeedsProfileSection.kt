@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,12 +72,12 @@ fun FeedsProfileSection(
                 ) {
                     if (isConnectMobileShouldShow) {
                         Text(
-                            text = "Connect mobile", style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f),
+                            text = stringResource(R.string.connect_mobile), style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1, overflow = TextOverflow.Ellipsis
                         )
                         Text(
-                            text = "•",
+                            text = stringResource(R.string.dot),
                             modifier = Modifier
                                 .align(Alignment.CenterVertically),
                             style = MaterialTheme.typography.labelLarge,
@@ -87,7 +88,7 @@ fun FeedsProfileSection(
                     Text(
                         text = formattedTime.split(",").get(0),
                         style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.5f),
+                        color = MaterialTheme.colorScheme.outlineVariant,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

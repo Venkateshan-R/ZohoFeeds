@@ -23,20 +23,12 @@ private val LightColorScheme = lightColorScheme(
     background = Color.White,
     secondaryContainer = BackgroundLightBlue,
     surface =  Color(0xFFFBF8FF),
-    onSurface =  Color(0xFF1C1B1F),
-    onSurfaceVariant =  Color(0xFF1C1B1F),
-    outlineVariant =  Color(0xFF000000).copy(.4f),
+    onSurface =  Color(0xFF000000),
+    onSurfaceVariant = Color(0xFF000000).copy(.7f),
+    outlineVariant =  Color(0xFF000000).copy(0.5f),
     outline =  Color(0xFF000000).copy(.2f),
+    secondary =   Color(0xFFEFECF7)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
 )
 
 @Composable

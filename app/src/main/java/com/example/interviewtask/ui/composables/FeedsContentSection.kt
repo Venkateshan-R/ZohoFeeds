@@ -17,5 +17,6 @@ import com.example.interviewtask.ui.theme.customFontFamily
 fun FeedsContentSection(content: String) {
     Text(
         text = content, style = MaterialTheme.typography.bodyLarge
+        , color = MaterialTheme.colorScheme.onSurface
     )
 }

@@ -35,12 +35,12 @@ fun FeedsBottomSection(viewCount: String) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_like),
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurface.copy(.9f)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_comment),
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurface.copy(.9f)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Row(
@@ -50,13 +50,13 @@ fun FeedsBottomSection(viewCount: String) {
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_views),
-                    tint = MaterialTheme.colorScheme.onSurface.copy(.7f),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     contentDescription = "",
                 )
                 Text(
                     text = (viewCount.toFloatOrNull() ?: 0.0f).formatCount() ,
                         style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
 
                 )
             }

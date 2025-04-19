@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,21 +37,23 @@ fun FeedsLikesAndComments(
         Text(
             text = (likesCount.toFloatOrNull() ?: 0.0f).formatCount(),
             modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp),
-
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
-            text = "•",
+            text = stringResource(R.string.dot),
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp),
 
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
-            text = "${(commentsCount.toFloatOrNull() ?: 0.0f).formatCount()} Comments",
+            text = stringResource(
+                R.string.comments,
+                (commentsCount.toFloatOrNull() ?: 0.0f).formatCount()
+            ),
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
