@@ -1,6 +1,7 @@
 package com.example.interviewtask.data.models
 
 import androidx.compose.runtime.Stable
+import com.example.interviewtask.data.local.entities.StreamsEntity
 
 data class Stream(
     val id: String,
@@ -18,4 +19,20 @@ data class Stream(
     val tags: List<String>,
     val attachments: List<String>,
     val reason: Reason,
-)
+) {
+    fun toStreamsEntity(): StreamsEntity {
+        return StreamsEntity(
+            id,
+            userDetails,
+            content,
+            time,
+            streamModifiedTime,
+            formatedTime,
+            viewCount,
+            url,
+            likeCount,
+            isCurrentUserLiked,
+            reason
+        )
+    }
+}

@@ -1,4 +1,4 @@
-package com.example.interviewtask.data.api
+package com.example.interviewtask.data.remote.api
 
 import com.example.interviewtask.data.models.FeedsModel
 import retrofit2.http.GET

@@ -1,5 +1,6 @@
-package com.example.interviewtask.data.api
+package com.example.interviewtask.data.di
 
+import com.example.interviewtask.data.remote.api.PostApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

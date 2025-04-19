@@ -1,4 +1,4 @@
-package com.example.interviewtask.data.api
+package com.example.interviewtask.data.di
 
 import com.example.interviewtask.data.repository.FeedsRepository
 import com.example.interviewtask.data.repository.FeedsRepositoryImpl

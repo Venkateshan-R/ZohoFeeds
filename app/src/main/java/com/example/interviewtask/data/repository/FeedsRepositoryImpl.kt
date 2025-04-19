@@ -1,7 +1,10 @@
 package com.example.interviewtask.data.repository
 
 import android.content.Context
-import com.example.interviewtask.data.api.PostApiService
+import com.example.interviewtask.data.local.dao.FeedsDao
+import com.example.interviewtask.data.local.entities.CommentsEntity
+import com.example.interviewtask.data.local.entities.StreamsEntity
+import com.example.interviewtask.data.remote.api.PostApiService
 import com.example.interviewtask.data.models.FeedsModel
 import com.example.interviewtask.data.models.Stream
 import com.example.interviewtask.ui.utils.isNetworkAvailable
@@ -13,7 +16,9 @@ import javax.inject.Singleton
 
 @Singleton
 class FeedsRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context, private val postApiService: PostApiService
+    @ApplicationContext private val context: Context,
+    private val postApiService: PostApiService,
+    private val feedsDao: FeedsDao
 ) : FeedsRepository {
 
     private var feedsModel: FeedsModel? = null
@@ -24,6 +29,9 @@ class FeedsRepositoryImpl @Inject constructor(
         }
         return@withContext try {
             feedsModel = postApiService.getPosts()
+            feedsModel?.let { it ->
+                insertAllTheStreams(it.recentStreams.streams.map {stream: Stream ->  stream.toStreamsEntity() })
+            }
             feedsModel ?: let {
                 throw Exception("Something went wrong")
             }
@@ -35,6 +43,14 @@ class FeedsRepositoryImpl @Inject constructor(
     override suspend fun getFeedById(id: String): Stream = withContext(Dispatchers.IO) {
         return@withContext feedsModel?.recentStreams?.streams?.first { it.id == id }
             ?: throw Exception("Post not found")
+    }
+
+    private fun insertAllTheStreams(streamsList: List<StreamsEntity>) {
+        feedsDao.insertAllTheStreams(streamsList)
+    }
+
+    private fun insertAllTheComments(commentsList: List<CommentsEntity>) {
+        feedsDao.insertAllTheComments(commentsList)
     }
 
 }
