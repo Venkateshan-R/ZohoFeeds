@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +21,9 @@ class DetailViewModel @Inject constructor(private val repository: FeedsRepositor
 
     private val _navigationEvent = MutableSharedFlow<Boolean>()
     val navigationEvent = _navigationEvent as SharedFlow<Boolean>
+
+    private val _moreEvent = MutableSharedFlow<Boolean>()
+    val moreEvent = _moreEvent as SharedFlow<Boolean>
 
     private val _selectedFeedStateFlow: MutableStateFlow<UiState<Stream>> =
         MutableStateFlow(UiState.Loading)
@@ -39,9 +43,23 @@ class DetailViewModel @Inject constructor(private val repository: FeedsRepositor
         }
     }
 
+
+
     fun onBackClicked() {
         viewModelScope.launch {
             _navigationEvent.emit(true)
+        }
+    }
+
+    fun showMore(){
+        viewModelScope.launch {
+            _moreEvent.emit(true)
+        }
+    }
+
+    fun hideMore(){
+        viewModelScope.launch {
+            _moreEvent.emit(false)
         }
     }
 }

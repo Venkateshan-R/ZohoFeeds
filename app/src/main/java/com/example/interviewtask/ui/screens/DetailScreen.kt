@@ -66,8 +66,6 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController) {
     val context = LocalContext.current
-    val isVisible = remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(key1 = true) {
         detailViewModel.getSelectedFeed()
@@ -109,7 +107,7 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                             }
                             items(it.data.comments) { it ->
                                 CommentsCard(it) {
-                                    isVisible.value = true
+                                    detailViewModel.showMore()
                                 }
                             }
                         }
@@ -117,9 +115,10 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                 }
             }
         }
-        MoreBottomSheet(sheetState = sheetState, isVisible = isVisible.value) {
-            isVisible.value = false
-        }
+        MoreBottomSheet(
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+            detailViewModel
+        )
     }
 }
 
@@ -147,7 +146,7 @@ fun CommentsTitleSection(commentsCount: String) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = stringResource(R.string.comments,commentsCount.toInt()),
+                text = stringResource(R.string.comments, commentsCount.toInt()),
                 fontFamily = customFontFamily,
                 style = MaterialTheme.typography.titleSmall
             )
@@ -285,10 +284,11 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoreBottomSheet(
-    sheetState: SheetState, isVisible: Boolean, onDismiss: () -> Unit
+    sheetState: SheetState, detailViewModel: DetailViewModel
 ) {
-    if (isVisible) ModalBottomSheet(
-        onDismissRequest = onDismiss,
+    val isBottomSheetVisible = detailViewModel.moreEvent.collectAsState(false).value
+    if (isBottomSheetVisible) ModalBottomSheet(
+        onDismissRequest = { detailViewModel.hideMore() },
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surface
     ) {
