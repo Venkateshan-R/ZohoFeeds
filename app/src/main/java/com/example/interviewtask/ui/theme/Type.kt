@@ -11,82 +11,73 @@ import com.example.interviewtask.R
 // Set of Material typography styles to start with
 
 val customFontFamily = FontFamily(
-    Font(R.font.regular, FontWeight.Normal),
-    Font(R.font.light, FontWeight.Light),
     Font(R.font.extralight, FontWeight.ExtraLight),
+    Font(R.font.light, FontWeight.Light),
+    Font(R.font.regular, FontWeight.Normal),
     Font(R.font.medium, FontWeight.Medium),
     Font(R.font.bold, FontWeight.Bold),
+    Font(R.font.semibold, FontWeight.SemiBold),
 )
 
 val Typography = Typography(
 
-    titleLarge = TextStyle(
-        fontFamily = customFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = 22.sp,
-        lineHeight = 28.sp
-    ),
+    //Profile Name
     titleMedium = TextStyle(
         fontFamily = customFontFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
         lineHeight = 22.sp
     ),
-    titleSmall = TextStyle(
-        fontFamily = customFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
-        lineHeight = 22.sp
-    ),
-    bodyMedium = TextStyle(
-        fontFamily = customFontFamily,
-        fontWeight = FontWeight.Light,
-        fontSize = 16.sp,
-        lineHeight = 22.sp
 
-    ),
+    //Main content
     bodyLarge = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 22.sp
+        lineHeight = 20.sp
 
     ),
+
+    //profile subcontent,comments,viewscount
     labelLarge = TextStyle(
         fontFamily = customFontFamily,
-        fontWeight = FontWeight.ExtraLight,
-        fontSize = 14.sp,
-        lineHeight = 18.sp
-
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 20.sp
     ),
+
+    //Profile time
     labelMedium = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        lineHeight = 14.sp
+        fontSize = 14.sp,
+        lineHeight = 20.sp
 
     ),
+
+    //Bottom bar items
     labelSmall = TextStyle(
         fontFamily = customFontFamily,
-        fontWeight = FontWeight.Light,
-        fontSize = 12.sp,
-        lineHeight = 14.sp
-
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontSize = 12.sp,
+        lineHeight = 16.sp
+
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+
+    //Comment title
+    titleSmall = TextStyle(
+        fontFamily = customFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+        fontSize = 16.sp,
+        lineHeight = 20.sp
+    ),
+
+    //Topbar title
+    titleLarge = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp,
+        lineHeight = 26.sp,
+    ),
+
 )

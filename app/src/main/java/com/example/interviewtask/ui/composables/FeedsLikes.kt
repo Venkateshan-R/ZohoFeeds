@@ -36,19 +36,21 @@ fun FeedsLikesAndComments(
         Text(
             text = (likesCount.toFloatOrNull() ?: 0.0f).formatCount(),
             modifier = Modifier.padding(horizontal = 2.dp, vertical = 1.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
         )
         Text(
             text = "•",
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
         )
         Text(
-            style = MaterialTheme.typography.bodyMedium,
             text = "${(commentsCount.toFloatOrNull() ?: 0.0f).formatCount()} Comments",
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
         )
     }
 }

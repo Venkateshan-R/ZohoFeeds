@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -40,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -99,8 +99,7 @@ fun DetailScreen(detailViewModel: DetailViewModel, navController: NavController)
                                 FeedItemContent(stream = it.data, false)
                                 HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
                                 CommentsTitleSection(
-                                    it.data.comments.size.toString(),
-                                    Modifier.padding(horizontal = 16.dp, vertical = 2.dp)
+                                    it.data.comments.size.toString()
                                 )
                                 HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
                             }
@@ -128,12 +127,16 @@ fun PreviewDetailScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CommentsTitleSection(commentsCount: String, modifier: Modifier) {
-    Column(modifier = modifier) {
+fun CommentsTitleSection(commentsCount: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 2.dp)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp),
+                .padding(vertical = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
@@ -173,13 +176,15 @@ fun CommentsCard(comment: Comment, onClick: () -> Unit) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.width(50.dp))
             Column(
-                modifier = Modifier.weight(.1f), verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
+                Spacer(Modifier)
                 FeedsContentSection(comment.content)
                 CommentsSectionBottomActions(comment)
-                HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f))
+                Spacer(Modifier)
             }
         }
+        HorizontalDivider(color = Color.LightGray.copy(alpha = 0.3f), modifier = Modifier.padding(start = 40.dp))
     }
 }
 
@@ -192,30 +197,38 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+//            modifier = Modifier.weight(.7f)
 
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_like),
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.outlineVariant
+                tint = MaterialTheme.colorScheme.onSurface.copy(.9f)
             )
             VerticalDivider(
-                modifier = Modifier.height(16.dp)
+                modifier = Modifier.height(12.dp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f)
+
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_reply),
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.outlineVariant
+                tint = MaterialTheme.colorScheme.onSurface.copy(.9f)
             )
 
             Text(
                 text = "•  ${(comment.replyCount.toFloatOrNull() ?: 0.0f).formatCount()} Replies",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f),
+                maxLines = 1
+                        ,overflow = TextOverflow.Ellipsis
+
             )
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically,
+//            modifier = Modifier.weight(.3f)
+            ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_liked),
                 contentDescription = "",
@@ -245,8 +258,10 @@ fun CommentsSectionBottomActions(comment: Comment, modifier: Modifier = Modifier
             )
             Text(
                 text = (comment.likeCount.toFloatOrNull() ?: 0.0f).formatCount(),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(.7f),
+                        maxLines = 1
+                ,overflow = TextOverflow.Ellipsis
             )
         }
     }

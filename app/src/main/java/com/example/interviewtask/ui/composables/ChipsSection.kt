@@ -35,8 +35,6 @@ fun ChipsSection(tags: List<String>) {
         ) {
             tags.forEach {
                 Surface(
-                    modifier = Modifier
-                        .padding(bottom = 0.dp), // optional, if needed
                     shape = RoundedCornerShape(percent = 50),
                     border = BorderStroke(
                         0.5.dp, color = MaterialTheme.colorScheme.outline,
@@ -46,7 +44,7 @@ fun ChipsSection(tags: List<String>) {
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
                         text = it,
                         fontFamily = customFontFamily,
-                        style = MaterialTheme.typography.labelLarge,
+                        style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
