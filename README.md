@@ -15,7 +15,7 @@ The app also supports **swipe-to-refresh** for reloading the feed.
 - **Error Handling**: Handles network and other errors with clear feedback.
 
 ## Architecture
-This app uses **MVVM (Model-View-ViewModel)** to separate the UI and business logic. The app has **repository** and **ui** packages.
+This app uses **MVVM (Model-View-ViewModel)** to separate the UI and business logic. The app has **data** and **ui** packages.
 
 ## Libraries Used
 - **Jetpack Compose** for UI.
