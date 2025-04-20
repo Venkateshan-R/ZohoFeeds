@@ -70,21 +70,26 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Dependency Injection - Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-    
+
+
     implementation(libs.androidx.navigation.compose)
+
+    //Image loading library -Coil
     implementation(libs.coil.compose)
 
+    //Retrofit
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
+    //swiperefresh view
     implementation(libs.androidx.swiperefreshlayout)
 
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
 }

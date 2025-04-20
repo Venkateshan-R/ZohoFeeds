@@ -21,7 +21,6 @@ val customFontFamily = FontFamily(
 
 val Typography = Typography(
 
-    //Profile Name
     titleMedium = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.SemiBold,
@@ -29,7 +28,6 @@ val Typography = Typography(
         lineHeight = 22.sp
     ),
 
-    //Main content
     bodyLarge = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
@@ -38,7 +36,6 @@ val Typography = Typography(
 
     ),
 
-    //profile subcontent,comments,viewscount
     labelLarge = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
@@ -46,7 +43,6 @@ val Typography = Typography(
         lineHeight = 20.sp
     ),
 
-    //Profile time
     labelMedium = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
@@ -55,7 +51,6 @@ val Typography = Typography(
 
     ),
 
-    //Bottom bar items
     labelSmall = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
@@ -64,7 +59,6 @@ val Typography = Typography(
 
     ),
 
-    //Comment title
     titleSmall = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Medium,
@@ -72,7 +66,6 @@ val Typography = Typography(
         lineHeight = 20.sp
     ),
 
-    //Topbar title
     titleLarge = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Bold,
