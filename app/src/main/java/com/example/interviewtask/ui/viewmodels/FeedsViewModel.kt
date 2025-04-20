@@ -60,13 +60,20 @@ class FeedsViewModel @Inject constructor(val repository: FeedsRepository) : View
         }
     }
 
+    //prevents double tap
+    var isClicked = false
     fun feedsItemClicked(stream: Stream) {
         viewModelScope.launch {
-            _navigationEvent.emit(
-                Screens.Detail.withArgs(
-                    stream.id
+            if (isClicked.not()) {
+                _navigationEvent.emit(
+                    Screens.Detail.withArgs(
+                        stream.id
+                    )
                 )
-            )
+            }
+            isClicked = true
+            delay(300)
+            isClicked = false
         }
     }
 }
