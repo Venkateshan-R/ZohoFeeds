@@ -25,6 +25,7 @@ class FeedsRepositoryImpl @Inject constructor(
 ) : FeedsRepository {
 
     override suspend fun fetchAllTheFeeds() = withContext(Dispatchers.IO) {
+        //checking network before API call
         if (isNetworkAvailable(context).not()) {
             throw Exception("No internet connection available")
         }
@@ -33,9 +34,7 @@ class FeedsRepositoryImpl @Inject constructor(
             feedsModel?.let { it ->
                 insertAllTheStreams(it.recentStreams.streams.map { stream: Stream -> stream.toStreamsEntity() })
             }
-            feedsModel ?: let {
-                throw Exception("Something went wrong")
-            }
+            feedsModel ?: throw Exception("Something went wrong")
         } catch (e: Exception) {
             throw e
         }
@@ -43,6 +42,7 @@ class FeedsRepositoryImpl @Inject constructor(
 
     override suspend fun getFeedById(id: String): Stream = withContext(Dispatchers.IO) {
         return@withContext getStreamByIdFromLocal(id).also {
+//            Log.d("check",it.toString())
         } ?: throw Exception("Post not found")
     }
 
@@ -51,6 +51,7 @@ class FeedsRepositoryImpl @Inject constructor(
         feedsDao.insertAllTheStreams(streamsList)
     }
 
+    //Fetch selected stream by id from Room database
     private suspend fun getStreamByIdFromLocal(id: String): Stream? =
         feedsDao.getStreamById(id)?.toStream()
 

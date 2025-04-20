@@ -65,9 +65,9 @@ fun FeedsBottomSection(viewCount: String) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewFeedsBottomScreen(modifier: Modifier = Modifier) {
-//    FeedsBottomSection()
+    FeedsBottomSection("10")
 
 }

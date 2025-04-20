@@ -8,4 +8,6 @@
     <string name="comments">%1$s Comments</string>
     <string name="connect_mobile">Connect mobile</string>
     <string name="replies">•  %1$s Replies</string>
+    <string name="copy_url">Copy URL</string>
+    <string name="copy_this_comment">Copy this comment</string>
 </resources>

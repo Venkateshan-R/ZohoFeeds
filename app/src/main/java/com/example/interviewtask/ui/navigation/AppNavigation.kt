@@ -59,11 +59,8 @@ fun AppNavigation(innerPadding: PaddingValues, navController: NavHostController)
                     towards = AnimatedContentTransitionScope.SlideDirection.End
                 )
             }) { backStackEntry ->
-                val postId = backStackEntry.arguments?.getString("posterId")!!
-                DetailScreen(hiltViewModel<DetailViewModel>().apply {
-                    selectedId = postId
-                },navController)
-
+//                val postId = backStackEntry.arguments?.getString("posterId")!!
+                DetailScreen(hiltViewModel<DetailViewModel>(),navController)
             }
         })
 }

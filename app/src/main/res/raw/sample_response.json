@@ -83,7 +83,18 @@
         "url": "https://example.com/stream/1281356632",
         "likeCount": "24570",
         "isCurrentUserLiked": "false",
-        "tags": [],
+        "tags": [
+          "hospital",
+          "stay",
+          "even",
+          "mean",
+          "even",
+          "hospital",
+          "new",
+          "mean",
+          "or",
+          "stay"
+        ],
         "attachments": [
           "https://picsum.photos/seed/treat/512/256",
           "https://picsum.photos/seed/around/512/256",
